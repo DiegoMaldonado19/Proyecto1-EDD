@@ -3,6 +3,7 @@
 Nodo::Nodo(Cancion *cancion, Nodo *siguiente){
     this->cancion = cancion;
     this->siguiente = siguiente;
+    this->indice=0;
 }
 
 Nodo::~Nodo(){
@@ -25,10 +26,10 @@ void Nodo::setSiguiente(Nodo *siguiente){
     this->siguiente = siguiente;
 }
 
-int* Nodo::getIndice(){
+int Nodo::getIndice(){
     return this->indice;
 }
 
-void Nodo::setIndice(int *indice){
+void Nodo::setIndice(int indice){
     this->indice = indice;
 }

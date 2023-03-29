@@ -6,12 +6,12 @@ using namespace std;
 
 class ListaEnlazada{
     private:
-        int *numeroElementos;
         string nombre;
         string descripcion;
         Nodo *cabeza;
 
     public: 
+        static int numeroElementos;
 
         ListaEnlazada(string nombre, string descripcion);
 
