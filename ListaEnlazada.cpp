@@ -47,3 +47,33 @@ void ListaEnlazada::graficarLista(){
     cout<<" Cancion: "<<actual->getCancion()->getNombre();
     cout<<" Path: "<<actual->getCancion()->getPath()<<endl;
 }
+
+void ListaEnlazada::eliminarCancion(string nombre){
+    if(this->isVacia()){
+        cout<< "Lista vacia"<<endl;
+    }
+    else {
+        if(this->cabeza->getCancion()->getNombre() == nombre ){
+            this->cabeza = this->cabeza->getSiguiente();
+            numeroElementos--;
+        } else {
+            Nodo *actual = this->cabeza;
+            while(actual->getSiguiente() != NULL && actual->getSiguiente()->getCancion()->getNombre() != nombre){
+                actual = actual->getSiguiente();
+                if(actual->getSiguiente()==NULL){
+                    cout<<"Cancion: "<<nombre<<" no existe dentro de la lista"<<endl;
+                } else {
+                    actual->setSiguiente(actual->getSiguiente()->getSiguiente());
+                    numeroElementos--;
+                }
+            }
+        }
+    }
+}
+
+bool ListaEnlazada::isVacia(){
+    if(this->cabeza == NULL){
+        return true;
+    }
+    return false;
+}
