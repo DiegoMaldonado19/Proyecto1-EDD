@@ -14,7 +14,7 @@ ListaEnlazada::~ListaEnlazada(){
 
 void ListaEnlazada::insertarCancion(Cancion *cancion){
     Nodo *nuevo = new Nodo(cancion, NULL);
-    if (this->cabeza == NULL){
+    if (this->isVacia()){
         this->cabeza = nuevo;
         numeroElementos++;
         this->cabeza->setIndice(numeroElementos);
