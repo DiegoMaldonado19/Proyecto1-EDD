@@ -1,10 +1,8 @@
 #include <iostream>
 #include <string>
-#include "Nodo.hpp"
+#include "ListaEnlazada.hpp"
 
 int main(){
-    Cancion *cancion = new Cancion("Diego", "sdfdsf");
-
     /*
     cout<<"Nombre cancion: "<<cancion->getNombre()<<endl;
     cout<<"Path de la cancion: "<<cancion->getPath()<<endl;
@@ -15,8 +13,18 @@ int main(){
     cout<<"Nombre cancion: "<<cancion->getNombre()<<endl;
     cout<<"Path de la cancion: "<<cancion->getPath()<<endl;   
     */
-    Nodo *nodo = new Nodo(cancion);
+    Cancion *cancion = new Cancion("One - Metallica", "C:\\Users\\ACER");
+    Nodo *inicio = new Nodo(cancion, NULL);
+    ListaEnlazada *lista = new ListaEnlazada("Lista 1", "Lista de prueba");
+    Cancion *cancion2 = new Cancion("Beso - Rosalia", "C:\\Users\\ACER");
+    Cancion *cancion3 = new Cancion("Leech - Sylosis", "C:\\Users\\ACER");
+    Cancion *cancion4 = new Cancion("Arise - Sepultura", "C:\\Users\\ACER");
+    lista->insertarCancion(cancion);
+    lista->insertarCancion(cancion2);
+    lista->insertarCancion(cancion3);
+    lista->insertarCancion(cancion4);
 
-    cout<<"Abriendo desde nodo, nombre cancion: "<<nodo->getCancion()->getNombre()<<endl;
-    delete nodo;
+    lista->graficarLista();
+
+    delete lista;
 }

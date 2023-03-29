@@ -5,10 +5,11 @@ using namespace std;
 
 class Nodo{
     private:
+        int *indice;
         Cancion *cancion;
         Nodo *siguiente;
     public:
-        Nodo(Cancion *cancion);
+        Nodo(Cancion *cancion, Nodo *siguiente);
 
         ~Nodo();
 
@@ -19,4 +20,8 @@ class Nodo{
         Nodo* getSiguiente();
 
         void setSiguiente(Nodo *siguiente);
+
+        int* getIndice();
+
+        void setIndice(int *indice);
 };

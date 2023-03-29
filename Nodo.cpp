@@ -1,8 +1,8 @@
 #include "Nodo.hpp"
 
-Nodo::Nodo(Cancion *cancion){
+Nodo::Nodo(Cancion *cancion, Nodo *siguiente){
     this->cancion = cancion;
-    this->siguiente = NULL;
+    this->siguiente = siguiente;
 }
 
 Nodo::~Nodo(){
@@ -25,3 +25,10 @@ void Nodo::setSiguiente(Nodo *siguiente){
     this->siguiente = siguiente;
 }
 
+int* Nodo::getIndice(){
+    return this->indice;
+}
+
+void Nodo::setIndice(int *indice){
+    this->indice = indice;
+}
