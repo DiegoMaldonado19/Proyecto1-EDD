@@ -77,3 +77,19 @@ bool ListaEnlazada::isVacia(){
     }
     return false;
 }
+
+void ListaEnlazada::buscarCancion(string nombre){
+
+    Nodo *actual = this->cabeza;
+    while(actual!=NULL){
+        if(actual->getCancion()->getNombre() == nombre){
+            cout<<"Nodo encontrado: "<<endl;
+            cout<<"Indice: "<<actual->getIndice();
+            cout<<" Cancion: "<<actual->getCancion()->getNombre();
+            cout<<" Path: "<<actual->getCancion()->getPath()<<endl;
+            break;
+        }
+        actual = actual->getSiguiente();
+    }
+
+}

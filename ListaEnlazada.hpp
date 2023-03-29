@@ -19,13 +19,13 @@ class ListaEnlazada{
 
         void insertarCancion(Cancion *cancion);
 
-        void eliminarCancion();
+        void eliminarCancion(string nombre);
 
         bool isVacia();
 
         void graficarLista();
 
-        void buscarCancion();
+        void buscarCancion(string nombre);
 
         int* getNumeroElementos();
 };

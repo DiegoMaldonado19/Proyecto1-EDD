@@ -25,6 +25,12 @@ int main(){
     lista->insertarCancion(cancion4);
 
     lista->graficarLista();
+    
+    lista->eliminarCancion(cancion->getNombre());
+
+    lista->graficarLista();
+
+    lista->buscarCancion(cancion3->getNombre());
 
     delete lista;
 }
