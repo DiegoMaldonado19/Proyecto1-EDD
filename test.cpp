@@ -13,6 +13,8 @@ int main(){
     cout<<"Nombre cancion: "<<cancion->getNombre()<<endl;
     cout<<"Path de la cancion: "<<cancion->getPath()<<endl;   
     */
+
+    int elemento=0;
     Cancion *cancion = new Cancion("One - Metallica", "C:\\Users\\ACER");
     Nodo *inicio = new Nodo(cancion, NULL);
     ListaEnlazada *lista = new ListaEnlazada("Lista 1", "Lista de prueba");
@@ -25,12 +27,18 @@ int main(){
     lista->insertarCancion(cancion4);
 
     lista->graficarLista();
-    
-    lista->eliminarCancion(cancion->getNombre());
+
+    cout<<"Que elemento de la lista desea eliminar? "<<endl;
+
+    cin>>elemento;
+
+    lista->eliminarCancionPorIndice(elemento);
+
+    cout<<" "<<endl;
+    cout<<" "<<endl;
 
     lista->graficarLista();
 
-    lista->buscarCancion(cancion3->getNombre());
 
     delete lista;
 }
