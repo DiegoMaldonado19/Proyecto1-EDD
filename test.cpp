@@ -42,7 +42,12 @@ int main(){
     lista2->insertarCancion(cancion9);
     lista2->insertarCancion(cancion10);
 
+    ListaCanciones *array = new ListaCanciones[10];
+
+    array[0] = lista;
+
 
     delete lista;
     delete lista2;
+    return 0;
 }
