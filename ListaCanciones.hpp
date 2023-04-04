@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class Store{
+class ListaCanciones{
     private:
         string nombre;
         string descripcion;
@@ -13,9 +13,11 @@ class Store{
     public: 
         static int numeroElementos;
 
-        Store(string nombre, string descripcion);
+        ListaCanciones();
 
-        ~Store();
+        ListaCanciones(string nombre, string descripcion);
+
+        ~ListaCanciones();
 
         void insertarCancion(Cancion *cancion);
 
@@ -31,9 +33,15 @@ class Store{
 
         void buscarCancionPorIndice(int indice);
 
-        int* getNumeroElementos();
-
         void arreglarIndices();
 
         Nodo* obtenerNodo(int indice);
+
+        void setNombre(string nombre);
+
+        string getNombre();
+
+        void setDescripcion(string nombre);
+
+        string getDescripcion();
 };

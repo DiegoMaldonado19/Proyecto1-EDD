@@ -1,20 +1,25 @@
-#include "Store.hpp"
+#include "ListaCanciones.hpp"
 
-int Store::numeroElementos = 0;
+int ListaCanciones::numeroElementos = 0;
 
-Store::Store(string nombre, string descripcion)
+ListaCanciones::ListaCanciones()
+{
+
+}
+
+ListaCanciones::ListaCanciones(string nombre, string descripcion)
 {
     this->cabeza = NULL;
     this->nombre = nombre;
     this->descripcion = descripcion;
 }
 
-Store::~Store()
+ListaCanciones::~ListaCanciones()
 {
-    cout << "Eliminando Lista " << this->nombre << endl;
+    cout << "Eliminando Lista " << this->getNombre() << endl;
 }
 
-void Store::insertarCancion(Cancion *cancion)
+void ListaCanciones::insertarCancion(Cancion *cancion)
 {
     Nodo *nuevo = new Nodo(cancion, NULL);
     if (this->isVacia())
@@ -36,10 +41,10 @@ void Store::insertarCancion(Cancion *cancion)
     }
 }
 
-void Store::graficarLista()
+void ListaCanciones::graficarLista()
 {
-    cout << "Lista: " << this->nombre << endl;
-    cout << "Descripcion: " << this->descripcion << endl;
+    cout << "Lista: " << this->getNombre() << endl;
+    cout << "Descripcion: " << this->getDescripcion() << endl;
     Nodo *actual = this->cabeza;
     while (actual->getSiguiente() != NULL)
     {
@@ -54,7 +59,7 @@ void Store::graficarLista()
     cout << " Path: " << actual->getCancion()->getPath() << endl;
 }
 
-void Store::eliminarCancionPorNombre(string nombre)
+void ListaCanciones::eliminarCancionPorNombre(string nombre)
 {
     if (this->isVacia())
     {
@@ -89,7 +94,7 @@ void Store::eliminarCancionPorNombre(string nombre)
     }
 }
 
-void Store::eliminarCancionPorIndice(int indice)
+void ListaCanciones::eliminarCancionPorIndice(int indice)
 {
     if (this->isVacia())
     {
@@ -112,7 +117,7 @@ void Store::eliminarCancionPorIndice(int indice)
             }
             if (actual->getSiguiente() == NULL)
             {
-                cout << "Cancion: " << nombre << " no existe dentro de la lista" << endl;
+                cout << "Cancion no existe dentro de la lista" << endl;
             }
             else
             {
@@ -124,7 +129,7 @@ void Store::eliminarCancionPorIndice(int indice)
     }
 }
 
-bool Store::isVacia()
+bool ListaCanciones::isVacia()
 {
     if (this->cabeza == NULL)
     {
@@ -133,7 +138,7 @@ bool Store::isVacia()
     return false;
 }
 
-void Store::arreglarIndices()
+void ListaCanciones::arreglarIndices()
 {
     Nodo *actual = this->cabeza;
     int iterador = 1;
@@ -145,7 +150,7 @@ void Store::arreglarIndices()
     }
 }
 
-void Store::buscarCancionPorNombre(string nombre)
+void ListaCanciones::buscarCancionPorNombre(string nombre)
 {
     Nodo *actual = this->cabeza;
     while (actual != NULL)
@@ -162,7 +167,7 @@ void Store::buscarCancionPorNombre(string nombre)
     }
 }
 
-void Store::buscarCancionPorIndice(int indice)
+void ListaCanciones::buscarCancionPorIndice(int indice)
 {
     Nodo *actual = this->cabeza;
     while (actual != NULL)
@@ -179,7 +184,7 @@ void Store::buscarCancionPorIndice(int indice)
     }
 }
 
-Nodo *Store::obtenerNodo(int indice)
+Nodo *ListaCanciones::obtenerNodo(int indice)
 {
     Nodo *actual = this->cabeza;
     if (this->cabeza == NULL)
@@ -205,3 +210,21 @@ Nodo *Store::obtenerNodo(int indice)
 
     return actual;
 }
+
+string ListaCanciones::getNombre(){
+    return this->nombre;
+}
+
+void ListaCanciones::setNombre(string nombre){
+    this->nombre = nombre;
+}
+
+string ListaCanciones::getDescripcion(){
+    return this->descripcion;
+}
+
+void ListaCanciones::setDescripcion(string descripcion){
+    this->descripcion = descripcion;
+}
+
+
