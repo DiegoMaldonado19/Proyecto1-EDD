@@ -4,7 +4,7 @@
 
 using namespace std;
 
-class ListaEnlazada{
+class Store{
     private:
         string nombre;
         string descripcion;
@@ -13,9 +13,9 @@ class ListaEnlazada{
     public: 
         static int numeroElementos;
 
-        ListaEnlazada(string nombre, string descripcion);
+        Store(string nombre, string descripcion);
 
-        ~ListaEnlazada();
+        ~Store();
 
         void insertarCancion(Cancion *cancion);
 

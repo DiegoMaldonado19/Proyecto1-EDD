@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "ListaEnlazada.hpp"
+#include "Store.hpp"
 
 int main(){
     /*
@@ -17,7 +17,7 @@ int main(){
     int elemento=0;
     Cancion *cancion = new Cancion("One - Metallica", "C:\\Users\\ACER");
     Nodo *inicio = new Nodo(cancion, NULL);
-    ListaEnlazada *lista = new ListaEnlazada("Lista 1", "Lista de prueba");
+    Store *lista = new Store("Lista 1", "Lista de prueba");
     Cancion *cancion2 = new Cancion("Beso - Rosalia", "C:\\Users\\ACER");
     Cancion *cancion3 = new Cancion("Leech - Sylosis", "C:\\Users\\ACER");
     Cancion *cancion4 = new Cancion("Arise - Sepultura", "C:\\Users\\ACER");

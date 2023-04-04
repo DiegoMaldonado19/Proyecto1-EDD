@@ -1,20 +1,20 @@
-#include "ListaEnlazada.hpp"
+#include "Store.hpp"
 
-int ListaEnlazada::numeroElementos = 0;
+int Store::numeroElementos = 0;
 
-ListaEnlazada::ListaEnlazada(string nombre, string descripcion)
+Store::Store(string nombre, string descripcion)
 {
     this->cabeza = NULL;
     this->nombre = nombre;
     this->descripcion = descripcion;
 }
 
-ListaEnlazada::~ListaEnlazada()
+Store::~Store()
 {
     cout << "Eliminando Lista " << this->nombre << endl;
 }
 
-void ListaEnlazada::insertarCancion(Cancion *cancion)
+void Store::insertarCancion(Cancion *cancion)
 {
     Nodo *nuevo = new Nodo(cancion, NULL);
     if (this->isVacia())
@@ -36,7 +36,7 @@ void ListaEnlazada::insertarCancion(Cancion *cancion)
     }
 }
 
-void ListaEnlazada::graficarLista()
+void Store::graficarLista()
 {
     cout << "Lista: " << this->nombre << endl;
     cout << "Descripcion: " << this->descripcion << endl;
@@ -54,7 +54,7 @@ void ListaEnlazada::graficarLista()
     cout << " Path: " << actual->getCancion()->getPath() << endl;
 }
 
-void ListaEnlazada::eliminarCancionPorNombre(string nombre)
+void Store::eliminarCancionPorNombre(string nombre)
 {
     if (this->isVacia())
     {
@@ -89,7 +89,7 @@ void ListaEnlazada::eliminarCancionPorNombre(string nombre)
     }
 }
 
-void ListaEnlazada::eliminarCancionPorIndice(int indice)
+void Store::eliminarCancionPorIndice(int indice)
 {
     if (this->isVacia())
     {
@@ -124,7 +124,7 @@ void ListaEnlazada::eliminarCancionPorIndice(int indice)
     }
 }
 
-bool ListaEnlazada::isVacia()
+bool Store::isVacia()
 {
     if (this->cabeza == NULL)
     {
@@ -133,7 +133,7 @@ bool ListaEnlazada::isVacia()
     return false;
 }
 
-void ListaEnlazada::arreglarIndices()
+void Store::arreglarIndices()
 {
     Nodo *actual = this->cabeza;
     int iterador = 1;
@@ -145,7 +145,7 @@ void ListaEnlazada::arreglarIndices()
     }
 }
 
-void ListaEnlazada::buscarCancionPorNombre(string nombre)
+void Store::buscarCancionPorNombre(string nombre)
 {
     Nodo *actual = this->cabeza;
     while (actual != NULL)
@@ -162,7 +162,7 @@ void ListaEnlazada::buscarCancionPorNombre(string nombre)
     }
 }
 
-void ListaEnlazada::buscarCancionPorIndice(int indice)
+void Store::buscarCancionPorIndice(int indice)
 {
     Nodo *actual = this->cabeza;
     while (actual != NULL)
@@ -179,7 +179,7 @@ void ListaEnlazada::buscarCancionPorIndice(int indice)
     }
 }
 
-Nodo *ListaEnlazada::obtenerNodo(int indice)
+Nodo *Store::obtenerNodo(int indice)
 {
     Nodo *actual = this->cabeza;
     if (this->cabeza == NULL)
