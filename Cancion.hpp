@@ -9,6 +9,9 @@ class Cancion{
         string nombre;
 
     public:
+
+        Cancion();
+
         Cancion(string nombre, string path);
 
         ~Cancion();

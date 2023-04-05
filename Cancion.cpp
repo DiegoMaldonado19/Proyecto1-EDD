@@ -4,6 +4,11 @@
 
 using namespace std;
 
+Cancion::Cancion(){
+    this->nombre = " ";
+    this->path = " ";
+}
+
 Cancion::Cancion(string nombre, string path){
     this->nombre = nombre;
     this->path = path;

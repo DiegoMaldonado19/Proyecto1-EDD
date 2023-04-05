@@ -6,7 +6,7 @@ using namespace std;
 
 class Pila{
     public: 
-        Cancion *array[];
+        Cancion** array;
         int top;
         int capacidad;
 
@@ -26,4 +26,4 @@ class Pila{
         bool llena();
 
         void imprimirPila();
-}
+};

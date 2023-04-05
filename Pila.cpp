@@ -1,7 +1,7 @@
 #include "Pila.hpp"
 
 Pila::Pila(int tamanio){
-    this->array = new Cancion[tamanio];
+    this->array = new Cancion*[tamanio];
     this->capacidad = tamanio;
     this->top = -1;
 }
@@ -16,11 +16,12 @@ void Pila::push(Cancion *cancion){
     }
     else {
         cout<<"Insertando: "<<cancion->getNombre()<<endl;
-        this->array[++top] = cancion;
+        this->array[top] = new Cancion(cancion->getNombre(), cancion->getPath());
+        top++;
     }
 }
 
-void Pila:pop(){
+void Pila::pop(){
     if(this->vacia()){
         cout<<"Pila vacia"<<endl;
     }
@@ -39,6 +40,12 @@ bool Pila::vacia(){
 
 int Pila::getTamanio(){
     return this->capacidad;
+}
+
+void Pila::imprimirPila(){
+    for (int i=0; i<this->capacidad; i++){
+        cout<<i<<"Cancion: "<<this->array[i]->getNombre()<<endl;
+    }
 }
 
 
