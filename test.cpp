@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "ListaCanciones.hpp"
+#include "ListaPlaylist.hpp"
 
 int main(){
     /*
@@ -42,9 +42,9 @@ int main(){
     lista2->insertarCancion(cancion9);
     lista2->insertarCancion(cancion10);
 
-    ListaCanciones *array = new ListaCanciones[10];
+    ListaPlaylist *listadoPlaylist = new ListaPlaylist();
 
-    array[0] = lista;
+    NodoPlaylist *nodoNuevo = new NodoPlaylist(lista, NULL);
 
 
     delete lista;
