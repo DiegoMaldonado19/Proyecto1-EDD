@@ -45,6 +45,12 @@ int main(){
     ListaPlaylist *listadoPlaylist = new ListaPlaylist();
 
     NodoPlaylist *nodoNuevo = new NodoPlaylist(lista, NULL);
+    NodoPlaylist *nodoNuevo2 = new NodoPlaylist(lista2, NULL);
+
+    listadoPlaylist->insertarListaPlaylist(nodoNuevo);
+    listadoPlaylist->insertarListaPlaylist(nodoNuevo2);
+
+    listadoPlaylist->graficarListaPlaylist();
 
 
     delete lista;

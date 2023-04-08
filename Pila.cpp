@@ -43,8 +43,8 @@ int Pila::getTamanio(){
 }
 
 void Pila::imprimirPila(){
-    for (int i=0; i<this->capacidad; i++){
-        cout<<i<<"Cancion: "<<this->array[i]->getNombre()<<endl;
+    for (int i=0; i<this->top; i++){
+        cout<<"Indice: "<<i<<" Cancion: "<<this->array[i]->getNombre()<<endl;
     }
 }
 

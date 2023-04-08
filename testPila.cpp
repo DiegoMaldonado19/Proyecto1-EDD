@@ -23,6 +23,8 @@ int main(){
     pila->push(cancion5);
     pila->push(cancion6);
 
+    pila->imprimirPila();
+
     delete pila;
 
     return 0;
