@@ -1,18 +1,9 @@
 #include <iostream>
 #include <string>
 #include "ListaPlaylist.hpp"
+#include "Pila.hpp"
 
 int main(){
-    /*
-    cout<<"Nombre cancion: "<<cancion->getNombre()<<endl;
-    cout<<"Path de la cancion: "<<cancion->getPath()<<endl;
-
-    cancion->setNombre("JOse");
-    cancion->setPath("132");
-
-    cout<<"Nombre cancion: "<<cancion->getNombre()<<endl;
-    cout<<"Path de la cancion: "<<cancion->getPath()<<endl;   
-    */
 
     int elemento=0;
     Cancion *cancion = new Cancion("One - Metallica", "C:\\Users\\ACER");
@@ -52,6 +43,25 @@ int main(){
 
     listadoPlaylist->graficarListaPlaylist();
 
+    Pila *pila = new Pila(10);
+
+    Cancion *cancionPila = new Cancion("Song 1", "C:\\");
+    Cancion *cancionPila2 = new Cancion("Song 2", "C:\\");
+    Cancion *cancionPila3 = new Cancion("Song 3", "C:\\");
+    Cancion *cancionPila4 = new Cancion("Song 4", "C:\\");
+    Cancion *cancionPila5 = new Cancion("Song 5", "C:\\");
+    Cancion *cancionPila6 = new Cancion("Song 6", "C:\\");
+
+    pila->push(cancionPila);
+    pila->push(cancionPila2);
+    pila->push(cancionPila3);
+    pila->push(cancionPila4);
+    pila->push(cancionPila5);
+    pila->push(cancionPila6);
+
+    pila->imprimirPila();
+
+    delete pila;
 
     delete lista;
     delete lista2;

@@ -1,3 +1,5 @@
+#ifndef CANCION_H
+#define CANCION_H
 #include <iostream>
 #include <string>
 
@@ -24,3 +26,5 @@ class Cancion{
 
         void setNombre(string nombre);
 };
+
+#endif 
