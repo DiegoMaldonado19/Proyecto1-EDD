@@ -7,19 +7,16 @@ using namespace std;
 
 string revisarEspacioEnBlanco(string nombre){
     int espacios=0;
-    bool contieneEspacios = false;
+    string resultado;
     for (int i = 0; i <= (int) nombre.length(); ++i){
         if (nombre[i] == ' '){
             espacios++;
-         }
+        }
     }
 
     if(espacios!=0){
-        contieneEspacios = true;
-        nombre = "\'"+nombre+"\'";
-        return nombre;
-    } else{
-        contieneEspacios = false;
+        resultado = "\'"+nombre+"\'";
+        return resultado;
     }
     return nombre;
 }
@@ -39,6 +36,7 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
     ListaCanciones* listaNueva;
     NodoPlaylist* nodoNuevo;
     Cancion* cancion;
+    string resultado;
 
     while(salir==false){
         system("clear");
@@ -52,14 +50,15 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
         cout<<"6) Eliminar canciones de playlist especifica"<<endl;
         cout<<"7) Salir"<<endl;
         cin>>opcion;
+        cin.ignore();
         switch(opcion){
             case 1:
                 salir=false;
                 system("clear");
                 cout<<"Ingresa el nombre de la Playlist"<<endl;
-                cin>>nombrePlaylist;
+                getline(cin, nombrePlaylist);
                 cout<<"Ingresa la descripcion de la Playlist"<<endl;
-                cin>>descripcionPlaylist;
+                getline(cin, descripcionPlaylist);
 
                 listaNueva = new ListaCanciones(nombrePlaylist, descripcionPlaylist);
                 nodoNuevo = new NodoPlaylist(listaNueva, NULL);
@@ -103,7 +102,8 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
                 cout<<"Ingresa el id de la playlist donde deseas agregar la cancion"<<endl;
                 cin>>idPlaylist2;
                 cout<<"Ingrese el nombre de la cancion, recuerde ingresar la extension .mp3"<<endl;
-                cin>>nombreCancion;
+                getline(cin, nombreCancion);
+                resultado = revisarEspacioEnBlanco(nombreCancion);
                 nombreCancion = revisarEspacioEnBlanco(nombreCancion);
                 cout<<"Ingrese el path de la cancion, recuerde que debe de ser algo asi: "<<endl;
                 cout<<"Path correcto: /home/diego/Escritorio/LabEDD/Proyecto1/Music/"<<endl;
@@ -158,6 +158,7 @@ ListaCanciones* menuStore(){
     string nombreBusqueda;
     Cancion* cancion;
     string resultado;
+    string hola;
 
     while(salir==false){
         system("clear");
@@ -169,14 +170,14 @@ ListaCanciones* menuStore(){
         cout<<"4) Listar Canciones"<<endl;
         cout<<"5) Salir"<<endl;
         cin>>opcion;
+        cin.ignore();
         switch(opcion){
             case 1:
                 system("clear");
                 cout<<"Ingrese el nombre de la cancion, recuerde ingresar la extension .mp3"<<endl;
-                cin>>nombre;
+                getline(cin, nombre);
                 resultado = revisarEspacioEnBlanco(nombre);
-                cout<<"Ingrese el path de la cancion, recuerde que debe de ser algo asi: "<<endl;
-                cout<<"Path correcto: /home/diego/Escritorio/LabEDD/Proyecto1/Music/"<<endl;
+                cout<<"Ingrese el path de la cancion, recuerde que debe de ser asi: /home/diego/Escritorio/LabEDD/Proyecto1/Music/"<<endl;
                 cin>>path;
                 cancion = new Cancion(nombre, path);
                 listaCanciones->insertarCancion(cancion);
@@ -189,6 +190,7 @@ ListaCanciones* menuStore(){
                 cout<<"2) Eliminar por nombre"<<endl;
                 cout<<"Ingrese una opcion"<<endl;
                 cin>>opcion2;
+                cin.ignore();
                 switch (opcion2){
                     case 1:
                         system("clear");
@@ -270,6 +272,7 @@ void menu(){
     bienvenida();
 
     while(salir==false){
+        system("clear");
         cout<<"Menu de Spotify C++"<<endl;
         cout<<"____________________________"<<endl;
         cout<<"1) Store"<<endl;
@@ -278,6 +281,7 @@ void menu(){
         cout<<"4) Salir"<<endl;
         cout<<"Ingrese una opcion valida..."<<endl;
         cin>>opcion;
+        cin.ignore();
         switch(opcion){
             case 1:
                 system("clear");

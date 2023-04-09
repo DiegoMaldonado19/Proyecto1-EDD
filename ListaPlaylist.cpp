@@ -123,9 +123,9 @@ void ListaPlaylist::actualizarDatosListaPorIndice(int indice)
 
     system("clear");
     cout<< "Ingrese el nuevo nombre: "<<endl;
-    cin>> nombre;
+    getline(cin, nombre);
     cout<< "Ingrese la nueva descripcion: "<<endl;
-    cin>> descripcion;
+    getline(cin, descripcion);
 
     while (actual != NULL)
     {
