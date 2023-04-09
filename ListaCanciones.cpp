@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <iostream>
 #include <stdio.h>
-#include <alsa/asoundlib.h>
 
 using namespace std;
 
@@ -65,6 +64,7 @@ void ListaCanciones::insertarCancion(Cancion* cancion){
         numeroElementos++;
         primero->setIndice(numeroElementos);
         cout<<"Cancion agregada con exito: "<<nuevo->getCancion()->getNombre()<<endl;
+        system("read -p 'Presione enter para continuar...' var");
     } else {
         ultimo->setSiguiente(nuevo);
         nuevo->setSiguiente(this->primero);
@@ -76,6 +76,7 @@ void ListaCanciones::insertarCancion(Cancion* cancion){
         numeroElementos++;
         nuevo->setIndice(numeroElementos);
         cout<<"Cancion agregada con exito: "<<nuevo->getCancion()->getNombre()<<endl;
+        system("read -p 'Presione enter para continuar...' var");
     }
 }
 
@@ -91,6 +92,7 @@ void ListaCanciones::imprimirLista(){
         } while(actual != this->primero);
     } else {
         cout<<"Lista vacia"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
     }
 }
 
@@ -103,16 +105,45 @@ void ListaCanciones::buscarElemento(string nombre){
             if(actual->getCancion()->getNombre() == nombre){
                 cout<<"Indice: "<<actual->getIndice();
                 cout<<" Cancion: "<<actual->getCancion()->getNombre()<<" encontrada "<<endl;
+                system("read -p 'Presione enter para continuar...' var");
                 encontrado=true;
             }
             actual = actual->getSiguiente();
         }
         if(encontrado==false){
             cout<<"Cancion: "<<nombre<<" no encontrada"<<endl;
+            system("read -p 'Presione enter para continuar...' var");
         }
     } else {
         cout<<"Lista vacia"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
     }
+}
+
+Cancion* ListaCanciones::obtenerCancion(int id){
+    Nodo* actual = this->primero;
+    bool encontrado = false;
+
+    if(this->primero != NULL){
+        while(actual!=NULL && encontrado!=true){
+            if(actual->getIndice() == id){
+                cout<<"Indice: "<<actual->getIndice();
+                cout<<" Cancion: "<<actual->getCancion()->getNombre()<<" encontrada "<<endl;
+                system("read -p 'Presione enter para continuar...' var");
+                encontrado=true;
+                return actual->getCancion();
+            }
+            actual = actual->getSiguiente();
+        }
+        if(encontrado==false){
+            cout<<"Cancion: "<<nombre<<" no encontrada"<<endl;
+            system("read -p 'Presione enter para continuar...' var");
+        }
+    } else {
+        cout<<"Lista vacia"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
+    }
+    return actual->getCancion();
 }
 
 void ListaCanciones::eliminarElementoPorId(int id){
@@ -138,13 +169,16 @@ void ListaCanciones::eliminarElementoPorId(int id){
                     numeroElementos--;
                     arreglarIndices();
                     cout<<"Cancion eliminada con exito"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else if (eleccion=='N' || eleccion=='n'){
                     system("clear");
                     cout<<"Saliendo..."<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else {
                     cout<<"Opcion incorrecta"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 }
             } else if(actual == this->ultimo){
@@ -162,13 +196,16 @@ void ListaCanciones::eliminarElementoPorId(int id){
                     numeroElementos--;
                     arreglarIndices();
                     cout<<"Cancion eliminada con exito"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else if (eleccion=='N' || eleccion=='n'){
                     system("clear");
                     cout<<"Saliendo..."<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else {
                     cout<<"Opcion incorrecta"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 }              
             } else {
@@ -184,13 +221,16 @@ void ListaCanciones::eliminarElementoPorId(int id){
                     numeroElementos--;
                     arreglarIndices();
                     cout<<"Cancion eliminada con exito"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else if (eleccion=='N' || eleccion=='n'){
                     system("clear");
                     cout<<"Saliendo..."<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 }  else {
                     cout<<"Opcion incorrecta"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 }
             }
@@ -224,13 +264,16 @@ void ListaCanciones::eliminarElementoPorNombre(string nombre){
                     numeroElementos--;
                     arreglarIndices();
                     cout<<"Cancion eliminada con exito"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else if (eleccion=='N' || eleccion=='n'){
                     system("clear");
                     cout<<"Saliendo..."<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else {
                     cout<<"Opcion incorrecta"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 }
             } else if(actual == this->ultimo){
@@ -248,13 +291,16 @@ void ListaCanciones::eliminarElementoPorNombre(string nombre){
                     numeroElementos--;
                     arreglarIndices();
                     cout<<"Cancion eliminada con exito"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else if (eleccion=='N' || eleccion=='n'){
                     system("clear");
                     cout<<"Saliendo..."<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else {
                     cout<<"Opcion incorrecta"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 }              
             } else {
@@ -270,6 +316,7 @@ void ListaCanciones::eliminarElementoPorNombre(string nombre){
                     numeroElementos--;
                     arreglarIndices();
                     cout<<"Cancion eliminada con exito"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 } else if (eleccion=='N' || eleccion=='n'){
                     system("clear");
@@ -277,6 +324,7 @@ void ListaCanciones::eliminarElementoPorNombre(string nombre){
                     break;
                 }  else {
                     cout<<"Opcion incorrecta"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
                     break;
                 }
             }
@@ -301,78 +349,90 @@ void ListaCanciones::arreglarIndices(){
         while(actual!=this->primero);
     } else {
         cout<<"Lista vacia"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
     }
 }
 
 void ListaCanciones::reproduccionNormal(){
     Nodo* actual = this->primero;
-
+    Pila* pila = listaDeReproduccion(actual->getCancion());
     if(this->primero != NULL){
         do{ 
             reproduccion(actual->getCancion());
             actual = actual->getSiguiente();
+            pila->pop();
+            visualizarListaDeReproduccion(pila);
+            system("read -p 'Presione enter para continuar...' var");
         }
         while(actual!=this->primero);
+    } else {
+        cout<<"Lista vacia"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
+    }
+}
+
+void ListaCanciones::reproduccionRepeticion(){
+    Nodo* actual = this->primero;
+    bool cancelarReproduccion=false;
+    char opcion;
+    Pila* pila = listaDeReproduccion(actual->getCancion());
+
+    if(this->primero != NULL){
+        do{
+            reproduccion(actual->getCancion());
+            actual = actual->getSiguiente();
+            pila->pop();
+            visualizarListaDeReproduccion(pila);
+            system("read -p 'Presione enter para continuar...' var");
+            cout<<"\n\n"<<endl;
+            cout<<"Desea salir de la reproduccion en repeticion?"<<endl;
+            cout<<"Presione Y, si desea salir..."<<endl;
+            cout<<"Presione N, si desea continuar con la reproduccion..."<<endl;
+            cin>>opcion;
+            if(opcion == 'Y' || opcion=='y'){
+                cancelarReproduccion = true;
+            } else if(opcion == 'N' || opcion == 'n'){
+                cancelarReproduccion = false;
+            } else {    
+                cout<<"Opcion incorrecta, la reproduccion continuara..."<<endl;
+                system("read -p 'Presione enter para continuar...' var");
+                cancelarReproduccion = false;
+            }
+        } while(cancelarReproduccion==false);
     } else {
         cout<<"Lista vacia"<<endl;
     }
 }
 
 void ListaCanciones::reproduccion(Cancion* cancion){
+    system("clear");
+    cout<<"\n\n"<<endl;
+    cout<<"IMPORTANTE: para finalizar la reproduccion, puede presionar la tecla q"<<endl;
+    cout<<"\n\n"<<endl;
+    string informacion = cancion->getPath() + cancion->getNombre();
+    string command = "mpg123 " + informacion;
+    system(command.c_str());
+    system("clear");
+}
 
-  const char* file_name = cancion->getNombre().c_str();
+Pila* ListaCanciones::listaDeReproduccion(Cancion* cancionActual){
+    Pila* pila = new Pila(this->numeroElementos);
 
-  snd_pcm_t* pcm_handle;
-  snd_pcm_hw_params_t* params;
-  int dir;
-  unsigned int rate = 44100;
-  int channels = 2;
-  snd_pcm_uframes_t frames;
-  char* buffer;
+    Nodo* actual = this->ultimo;
 
-  // Open the default PCM device for playback.
-  if (snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0) < 0) {
-    std::cerr << "Error opening PCM device" << std::endl;
-  }
-
-  // Allocate a hardware parameters object.
-  snd_pcm_hw_params_alloca(&params);
-
-  // Fill it with default values.
-  snd_pcm_hw_params_any(pcm_handle, params);
-
-  // Set the desired hardware parameters.
-  snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
-  snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
-  snd_pcm_hw_params_set_channels(pcm_handle, params, channels);
-  snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, &dir);
-
-  // Write the parameters to the driver.
-  if (snd_pcm_hw_params(pcm_handle, params) < 0) {
-    std::cerr << "Error setting hardware parameters" << std::endl;
-  }
-
-  // Allocate a buffer to hold one period of audio data.
-  snd_pcm_hw_params_get_period_size(params, &frames, &dir);
-  int size = frames * channels * 2;
-  buffer = (char*)malloc(size);
-
-  // Open the audio file for reading.
-  FILE* audio_file = fopen(file_name, "rb");
-  if (audio_file == nullptr) {
-    std::cerr << "Error opening audio file" << std::endl;
-  }
-
-  // Read audio data from the file and play it.
-  while (fread(buffer, 1, size, audio_file) == (unsigned int)size) {
-    if (snd_pcm_writei(pcm_handle, buffer, frames) == -EPIPE) {
-      snd_pcm_prepare(pcm_handle);
+    if(this->primero != NULL){
+        do{
+            pila->push(actual->getCancion());
+            actual = actual->getAnterior();
+        } while(actual->getCancion() != cancionActual);
+    } else {
+        cout<<"Lista vacia"<<endl;
     }
-  }
 
-  // Clean up resources.
-  free(buffer);
-  snd_pcm_drain(pcm_handle);
-  snd_pcm_close(pcm_handle);
-  fclose(audio_file);
+    return pila;
+}
+
+void ListaCanciones::visualizarListaDeReproduccion(Pila* pila){
+    cout<<"Lista de Reproduccion"<<endl;
+    pila->imprimirPila();
 }

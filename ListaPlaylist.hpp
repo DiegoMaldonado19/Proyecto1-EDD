@@ -28,4 +28,10 @@ class ListaPlaylist{
         void arreglarIndices();
 
         NodoPlaylist* obtenerNodoPlaylist(int indice);
+
+        void ingresarCancion(Cancion* cancion, int id);
+
+        void eliminarCancion(int cancionId, int id);
+
+        void imprimirListaEspecifica(int id);
 };

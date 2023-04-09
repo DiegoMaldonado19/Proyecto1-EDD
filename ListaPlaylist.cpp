@@ -19,6 +19,8 @@ void ListaPlaylist::insertarListaPlaylist(NodoPlaylist *nuevo)
         this->cabeza = nuevo;
         numeroElementos++;
         this->cabeza->setIndice(numeroElementos);
+        cout<<"Lista ingresada con exito"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
     }
     else
     {
@@ -30,6 +32,8 @@ void ListaPlaylist::insertarListaPlaylist(NodoPlaylist *nuevo)
         actual->setSiguiente(nuevo);
         numeroElementos++;
         nuevo->setIndice(numeroElementos);
+        cout<<"Lista ingresada con exito"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
     }
 }
 
@@ -54,6 +58,7 @@ void ListaPlaylist::eliminarListaPorIndice(int indice)
     if (this->isVacia())
     {
         cout << "Lista vacia" << endl;
+        system("read -p 'Presione enter para continuar...' var");
     }
     else
     {
@@ -62,6 +67,8 @@ void ListaPlaylist::eliminarListaPorIndice(int indice)
             this->cabeza = this->cabeza->getSiguiente();
             numeroElementos--;
             this->arreglarIndices();
+            cout<<"Lista eliminada con exito"<<endl;
+            system("read -p 'Presione enter para continuar...' var");
         }
         else
         {
@@ -73,11 +80,14 @@ void ListaPlaylist::eliminarListaPorIndice(int indice)
             if (actual->getSiguiente() == NULL)
             {
                 cout << "Lista no existe dentro de la lista" << endl;
+                system("read -p 'Presione enter para continuar...' var");
             }
             else
             {
                 actual->setSiguiente(actual->getSiguiente()->getSiguiente());
                 numeroElementos--;
+                cout<<"Lista eliminada con exito"<<endl;
+                system("read -p 'Presione enter para continuar...' var");
             }
             this->arreglarIndices();
         }
@@ -111,6 +121,7 @@ void ListaPlaylist::actualizarDatosListaPorIndice(int indice)
     string nombre;
     string descripcion;
 
+    system("clear");
     cout<< "Ingrese el nuevo nombre: "<<endl;
     cin>> nombre;
     cout<< "Ingrese la nueva descripcion: "<<endl;
@@ -126,6 +137,8 @@ void ListaPlaylist::actualizarDatosListaPorIndice(int indice)
         }
         actual = actual->getSiguiente();
     }
+    cout<<"Cancion actualizada con exito"<<endl;
+    system("read -p 'Presione enter para continuar...' var");
 }
 
 NodoPlaylist *ListaPlaylist::obtenerNodoPlaylist(int indice)
@@ -153,4 +166,64 @@ NodoPlaylist *ListaPlaylist::obtenerNodoPlaylist(int indice)
     }
 
     return actual;
+}
+
+void ListaPlaylist::ingresarCancion(Cancion* cancion, int id){
+    NodoPlaylist *actual = this->cabeza;
+    if (this->cabeza == NULL)
+    {
+        cout << "Lista Vacia" << endl;
+    }
+    else
+    {
+        while (actual != NULL)
+        {
+            if (actual->getIndice() == id)
+            {
+                actual->getLista()->insertarCancion(cancion);
+                break;
+            }
+            actual = actual->getSiguiente();
+        }
+    }
+}
+
+void ListaPlaylist::eliminarCancion(int cancionId, int id){
+    NodoPlaylist *actual = this->cabeza;
+    if (this->cabeza == NULL)
+    {
+        cout << "Lista Vacia" << endl;
+    }
+    else
+    {
+        while (actual != NULL)
+        {
+            if (actual->getIndice() == id)
+            {
+                actual->getLista()->eliminarElementoPorId(cancionId);
+                break;
+            }
+            actual = actual->getSiguiente();
+        }
+    }
+}
+
+void ListaPlaylist::imprimirListaEspecifica(int id){
+    NodoPlaylist *actual = this->cabeza;
+    if (this->cabeza == NULL)
+    {
+        cout << "Lista Vacia" << endl;
+    }
+    else
+    {
+        while (actual != NULL)
+        {
+            if (actual->getIndice() == id)
+            {
+                actual->getLista()->imprimirLista();
+                break;
+            }
+            actual = actual->getSiguiente();
+        }
+    }
 }

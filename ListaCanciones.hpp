@@ -1,6 +1,7 @@
 #include "Nodo.hpp"
 #include <string.h>
 #include <stdlib.h>
+#include "Pila.hpp"
 
 using namespace std;
 
@@ -51,4 +52,10 @@ class ListaCanciones{
         void reproduccionRepeticion();
 
         void reproduccion(Cancion* cancion);
+
+        Pila* listaDeReproduccion(Cancion* cancionActual);
+
+        void visualizarListaDeReproduccion(Pila* pila);
+
+        Cancion* obtenerCancion(int id);
 };
