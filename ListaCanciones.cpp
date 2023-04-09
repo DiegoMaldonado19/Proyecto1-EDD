@@ -1,7 +1,8 @@
 #include "ListaCanciones.hpp"
 #include <stdlib.h>
 #include <iostream>
-#include <stdio.h> 
+#include <stdio.h>
+#include <alsa/asoundlib.h>
 
 using namespace std;
 
@@ -119,6 +120,7 @@ void ListaCanciones::eliminarElementoPorId(int id){
     Nodo* anterior = this->ultimo;
 
     char eleccion;
+    bool encontrado = false;
 
     do{
         if(actual->getIndice() == id){
@@ -192,10 +194,97 @@ void ListaCanciones::eliminarElementoPorId(int id){
                     break;
                 }
             }
+            encontrado = true;
         }
         anterior = actual;
         actual = actual->getSiguiente();
-    } while(actual!=this->primero);
+    } while(actual!=this->primero && encontrado==false);
+}
+
+void ListaCanciones::eliminarElementoPorNombre(string nombre){
+    Nodo* actual = this->primero;
+    Nodo* anterior = this->ultimo;
+
+    char eleccion;
+    bool encontrado = false;
+
+    do{
+        if(actual->getCancion()->getNombre() == nombre){
+            if(actual == this->primero){
+                cout<<"Necesitamos su confirmacion para eliminar el elemento: "<<endl;
+                cout<<"Indice: "<<actual->getIndice()<< " | Nombre: "<<actual->getCancion()->getNombre()<<endl;
+                cout<<"Ingrese Y para eliminar"<<endl;
+                cout<<"Ingrese N para no eliminar la cancion"<<endl;
+                cin>>eleccion;
+
+                if(eleccion=='Y' || eleccion=='y'){
+                    this->primero = this->primero->getSiguiente();
+                    this->ultimo->setSiguiente(this->primero);
+                    this->primero->setAnterior(this->ultimo);
+                    numeroElementos--;
+                    arreglarIndices();
+                    cout<<"Cancion eliminada con exito"<<endl;
+                    break;
+                } else if (eleccion=='N' || eleccion=='n'){
+                    system("clear");
+                    cout<<"Saliendo..."<<endl;
+                    break;
+                } else {
+                    cout<<"Opcion incorrecta"<<endl;
+                    break;
+                }
+            } else if(actual == this->ultimo){
+
+                cout<<"Necesitamos su confirmacion para eliminar el elemento: "<<endl;
+                cout<<"Indice: "<<actual->getIndice()<< " | Nombre: "<<actual->getCancion()->getNombre()<<endl;
+                cout<<"Ingrese Y para eliminar"<<endl;
+                cout<<"Ingrese N para no eliminar la cancion"<<endl;
+                cin>>eleccion;
+
+                if(eleccion=='Y' || eleccion=='y'){
+                    this->ultimo = anterior;
+                    this->primero->setAnterior(this->ultimo);
+                    this->ultimo->setSiguiente(this->primero);
+                    numeroElementos--;
+                    arreglarIndices();
+                    cout<<"Cancion eliminada con exito"<<endl;
+                    break;
+                } else if (eleccion=='N' || eleccion=='n'){
+                    system("clear");
+                    cout<<"Saliendo..."<<endl;
+                    break;
+                } else {
+                    cout<<"Opcion incorrecta"<<endl;
+                    break;
+                }              
+            } else {
+                cout<<"Necesitamos su confirmacion para eliminar el elemento: "<<endl;
+                cout<<"Indice: "<<actual->getIndice()<< " | Nombre: "<<actual->getCancion()->getNombre()<<endl;
+                cout<<"Ingrese Y para eliminar"<<endl;
+                cout<<"Ingrese N para no eliminar la cancion"<<endl;
+                cin>>eleccion;
+
+                if(eleccion=='Y' || eleccion=='y'){
+                    anterior->setSiguiente(actual->getSiguiente());
+                    actual->getSiguiente()->setAnterior(anterior);
+                    numeroElementos--;
+                    arreglarIndices();
+                    cout<<"Cancion eliminada con exito"<<endl;
+                    break;
+                } else if (eleccion=='N' || eleccion=='n'){
+                    system("clear");
+                    cout<<"Saliendo..."<<endl;
+                    break;
+                }  else {
+                    cout<<"Opcion incorrecta"<<endl;
+                    break;
+                }
+            }
+            encontrado = true;
+        }
+        anterior = actual;
+        actual = actual->getSiguiente();
+    } while(actual!=this->primero && encontrado==false);
 }
 
 void ListaCanciones::arreglarIndices(){
@@ -213,4 +302,77 @@ void ListaCanciones::arreglarIndices(){
     } else {
         cout<<"Lista vacia"<<endl;
     }
+}
+
+void ListaCanciones::reproduccionNormal(){
+    Nodo* actual = this->primero;
+
+    if(this->primero != NULL){
+        do{ 
+            reproduccion(actual->getCancion());
+            actual = actual->getSiguiente();
+        }
+        while(actual!=this->primero);
+    } else {
+        cout<<"Lista vacia"<<endl;
+    }
+}
+
+void ListaCanciones::reproduccion(Cancion* cancion){
+
+  const char* file_name = cancion->getNombre().c_str();
+
+  snd_pcm_t* pcm_handle;
+  snd_pcm_hw_params_t* params;
+  int dir;
+  unsigned int rate = 44100;
+  int channels = 2;
+  snd_pcm_uframes_t frames;
+  char* buffer;
+
+  // Open the default PCM device for playback.
+  if (snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0) < 0) {
+    std::cerr << "Error opening PCM device" << std::endl;
+  }
+
+  // Allocate a hardware parameters object.
+  snd_pcm_hw_params_alloca(&params);
+
+  // Fill it with default values.
+  snd_pcm_hw_params_any(pcm_handle, params);
+
+  // Set the desired hardware parameters.
+  snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
+  snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
+  snd_pcm_hw_params_set_channels(pcm_handle, params, channels);
+  snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, &dir);
+
+  // Write the parameters to the driver.
+  if (snd_pcm_hw_params(pcm_handle, params) < 0) {
+    std::cerr << "Error setting hardware parameters" << std::endl;
+  }
+
+  // Allocate a buffer to hold one period of audio data.
+  snd_pcm_hw_params_get_period_size(params, &frames, &dir);
+  int size = frames * channels * 2;
+  buffer = (char*)malloc(size);
+
+  // Open the audio file for reading.
+  FILE* audio_file = fopen(file_name, "rb");
+  if (audio_file == nullptr) {
+    std::cerr << "Error opening audio file" << std::endl;
+  }
+
+  // Read audio data from the file and play it.
+  while (fread(buffer, 1, size, audio_file) == (unsigned int)size) {
+    if (snd_pcm_writei(pcm_handle, buffer, frames) == -EPIPE) {
+      snd_pcm_prepare(pcm_handle);
+    }
+  }
+
+  // Clean up resources.
+  free(buffer);
+  snd_pcm_drain(pcm_handle);
+  snd_pcm_close(pcm_handle);
+  fclose(audio_file);
 }

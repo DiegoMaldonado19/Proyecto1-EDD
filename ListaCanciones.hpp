@@ -42,7 +42,13 @@ class ListaCanciones{
 
         void eliminarElementoPorId(int id);
 
-        void eliminarElementoPorNombre();
+        void eliminarElementoPorNombre(string nombre);
 
         void arreglarIndices();
+
+        void reproduccionNormal();
+
+        void reproduccionRepeticion();
+
+        void reproduccion(Cancion* cancion);
 };

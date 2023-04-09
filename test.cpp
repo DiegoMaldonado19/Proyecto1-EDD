@@ -59,6 +59,9 @@ int main(){
 
     pila->imprimirPila();
 
+
+    listadoPlaylist->obtenerNodoPlaylist(1)->getLista()->reproduccionNormal();
+
     delete pila;
 
     delete lista;
