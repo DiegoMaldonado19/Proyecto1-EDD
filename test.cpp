@@ -1,17 +1,18 @@
-#include <iostream>
-#include <string>
 #include "ListaPlaylist.hpp"
 #include "Pila.hpp"
+#include <stdlib.h>
+#include <string>
+
+using namespace std;
 
 int main(){
 
-    int elemento=0;
     Cancion *cancion = new Cancion("One - Metallica", "C:\\Users\\ACER");
-    Nodo *inicio = new Nodo(cancion, NULL);
     ListaCanciones *lista = new ListaCanciones("Lista 1", "Lista de prueba");
     Cancion *cancion2 = new Cancion("Beso - Rosalia", "C:\\Users\\ACER");
     Cancion *cancion3 = new Cancion("Leech - Sylosis", "C:\\Users\\ACER");
     Cancion *cancion4 = new Cancion("Arise - Sepultura", "C:\\Users\\ACER");
+    lista->insertarCancion(cancion);
     lista->insertarCancion(cancion2);
     lista->insertarCancion(cancion3);
     lista->insertarCancion(cancion4);
@@ -19,12 +20,9 @@ int main(){
     Cancion *cancion5 = new Cancion("Chicharron - Guayna", "C:\\Users\\ACER");
     Cancion *cancion6 = new Cancion("Rompe Rodillas - Guayna", "C:\\Users\\ACER");
     Cancion *cancion7 = new Cancion("Tra Tra - Guayna", "C:\\Users\\ACER");
-    Cancion *cancion8 = new Cancion("", "C:\\Users\\ACER");
+    Cancion *cancion8 = new Cancion("Como se siente - Bad Bunny", "C:\\Users\\ACER");
     Cancion *cancion9 = new Cancion("Chicharron - Guayna", "C:\\Users\\ACER");
-    Cancion *cancion10 = new Cancion("Chicharron - Guayna", "C:\\Users\\ACER");
-
-    Nodo *inicio2 = new Nodo(cancion5, NULL);
-
+    Cancion *cancion10 = new Cancion("Rebota - Guayna", "C:\\Users\\ACER");
     ListaCanciones *lista2 = new ListaCanciones("Lista 2", "Lista en array");
     lista2->insertarCancion(cancion5);
     lista2->insertarCancion(cancion6);

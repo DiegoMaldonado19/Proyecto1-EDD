@@ -1,6 +1,6 @@
-#include <stdlib.h>
-#include <string>
 #include "Nodo.hpp"
+#include <string.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -8,40 +8,41 @@ class ListaCanciones{
     private:
         string nombre;
         string descripcion;
-        Nodo *cabeza;
+        Nodo* primero;
+        Nodo* ultimo;
 
-    public: 
+    public:
         static int numeroElementos;
-
-        ListaCanciones();
 
         ListaCanciones(string nombre, string descripcion);
 
         ~ListaCanciones();
 
-        void insertarCancion(Cancion *cancion);
-
-        void eliminarCancionPorNombre(string nombre);
-
-        void eliminarCancionPorIndice(int indice);
-
-        bool isVacia();
-
-        void graficarLista();
-
-        void buscarCancionPorNombre(string nombre);
-
-        void buscarCancionPorIndice(int indice);
-
-        void arreglarIndices();
-
-        Nodo* obtenerNodo(int indice);
+        string getNombre();
 
         void setNombre(string nombre);
 
-        string getNombre();
+        string getDescripcion();
 
         void setDescripcion(string nombre);
 
-        string getDescripcion();
+        Nodo* getPrimero();
+
+        void setPrimero(Nodo* primero);
+
+        Nodo* getUltimo();
+
+        void setUltimo(Nodo* ultimo);
+
+        void insertarCancion(Cancion* cancion);
+
+        void imprimirLista();
+
+        void buscarElemento(string nombre);
+
+        void eliminarElementoPorId(int id);
+
+        void eliminarElementoPorNombre();
+
+        void arreglarIndices();
 };

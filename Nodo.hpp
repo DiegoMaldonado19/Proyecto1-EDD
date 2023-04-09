@@ -1,25 +1,34 @@
-#include <stdlib.h>
 #include "Cancion.hpp"
+#include <string>
+#include <stdlib.h>
+#include <iostream>
 
 using namespace std;
 
 class Nodo{
     private:
         int indice;
-        Cancion *cancion;
-        Nodo *siguiente;
+        Cancion* cancion;
+        Nodo* anterior;
+        Nodo* siguiente;
+
     public:
-        Nodo(Cancion *cancion, Nodo *siguiente);
+        
+        Nodo(Cancion* cancion);
 
         ~Nodo();
 
-        Cancion* getCancion();
+        Nodo* getAnterior();
 
-        void setCancion(Cancion *cancion);
+        void setAnterior(Nodo* anterior);
 
         Nodo* getSiguiente();
 
-        void setSiguiente(Nodo *siguiente);
+        void setSiguiente(Nodo* siguiente);
+
+        Cancion* getCancion();
+
+        void setCancion(Cancion* cancion);
 
         int getIndice();
 

@@ -1,214 +1,22 @@
 #include "ListaCanciones.hpp"
+#include <stdlib.h>
+#include <iostream>
+#include <stdio.h> 
+
+using namespace std;
 
 int ListaCanciones::numeroElementos = 0;
 
-ListaCanciones::ListaCanciones()
-{
-
-}
-
-ListaCanciones::ListaCanciones(string nombre, string descripcion)
-{
-    this->cabeza = NULL;
+ListaCanciones::ListaCanciones(string nombre, string descripcion){
+    this->primero = NULL;
+    this->ultimo = NULL;
     this->nombre = nombre;
     this->descripcion = descripcion;
 }
 
-ListaCanciones::~ListaCanciones()
-{
-    cout << "Eliminando Lista " << this->getNombre() << endl;
-}
-
-void ListaCanciones::insertarCancion(Cancion *cancion)
-{
-    Nodo *nuevo = new Nodo(cancion, NULL);
-    if (this->isVacia())
-    {
-        this->cabeza = nuevo;
-        numeroElementos++;
-        this->cabeza->setIndice(numeroElementos);
-    }
-    else
-    {
-        Nodo *actual = this->cabeza;
-        while (actual->getSiguiente() != NULL)
-        {
-            actual = actual->getSiguiente();
-        }
-        actual->setSiguiente(nuevo);
-        numeroElementos++;
-        nuevo->setIndice(numeroElementos);
-    }
-}
-
-void ListaCanciones::graficarLista()
-{
-    cout << "Lista: " << this->getNombre() << endl;
-    cout << "Descripcion: " << this->getDescripcion() << endl;
-    Nodo *actual = this->cabeza;
-    while (actual->getSiguiente() != NULL)
-    {
-        cout << "Indice: " << actual->getIndice();
-        cout << " Cancion: " << actual->getCancion()->getNombre();
-        cout << " Path: " << actual->getCancion()->getPath() << endl;
-
-        actual = actual->getSiguiente();
-    }
-    cout << "Indice: " << actual->getIndice();
-    cout << " Cancion: " << actual->getCancion()->getNombre();
-    cout << " Path: " << actual->getCancion()->getPath() << endl;
-}
-
-void ListaCanciones::eliminarCancionPorNombre(string nombre)
-{
-    if (this->isVacia())
-    {
-        cout << "Lista vacia" << endl;
-    }
-    else
-    {
-        if (this->cabeza->getCancion()->getNombre() == nombre)
-        {
-            this->cabeza = this->cabeza->getSiguiente();
-            numeroElementos--;
-            this->arreglarIndices();
-        }
-        else
-        {
-            Nodo *actual = this->cabeza;
-            while (actual->getSiguiente() != NULL && actual->getSiguiente()->getCancion()->getNombre() != nombre)
-            {
-                actual = actual->getSiguiente();
-            }
-            if (actual->getSiguiente() == NULL)
-            {
-                cout << "Cancion: " << nombre << " no existe dentro de la lista" << endl;
-            }
-            else
-            {
-                actual->setSiguiente(actual->getSiguiente()->getSiguiente());
-                numeroElementos--;
-            }
-            this->arreglarIndices();
-        }
-    }
-}
-
-void ListaCanciones::eliminarCancionPorIndice(int indice)
-{
-    if (this->isVacia())
-    {
-        cout << "Lista vacia" << endl;
-    }
-    else
-    {
-        if (this->cabeza->getIndice() == indice)
-        {
-            this->cabeza = this->cabeza->getSiguiente();
-            numeroElementos--;
-            this->arreglarIndices();
-        }
-        else
-        {
-            Nodo *actual = this->cabeza;
-            while (actual->getSiguiente() != NULL && actual->getSiguiente()->getIndice() != indice)
-            {
-                actual = actual->getSiguiente();
-            }
-            if (actual->getSiguiente() == NULL)
-            {
-                cout << "Cancion no existe dentro de la lista" << endl;
-            }
-            else
-            {
-                actual->setSiguiente(actual->getSiguiente()->getSiguiente());
-                numeroElementos--;
-            }
-            this->arreglarIndices();
-        }
-    }
-}
-
-bool ListaCanciones::isVacia()
-{
-    if (this->cabeza == NULL)
-    {
-        return true;
-    }
-    return false;
-}
-
-void ListaCanciones::arreglarIndices()
-{
-    Nodo *actual = this->cabeza;
-    int iterador = 1;
-    while (actual != NULL)
-    {
-        actual->setIndice(iterador);
-        actual = actual->getSiguiente();
-        iterador++;
-    }
-}
-
-void ListaCanciones::buscarCancionPorNombre(string nombre)
-{
-    Nodo *actual = this->cabeza;
-    while (actual != NULL)
-    {
-        if (actual->getCancion()->getNombre() == nombre)
-        {
-            cout << "Nodo encontrado: " << endl;
-            cout << "Indice: " << actual->getIndice();
-            cout << " Cancion: " << actual->getCancion()->getNombre();
-            cout << " Path: " << actual->getCancion()->getPath() << endl;
-            break;
-        }
-        actual = actual->getSiguiente();
-    }
-}
-
-void ListaCanciones::buscarCancionPorIndice(int indice)
-{
-    Nodo *actual = this->cabeza;
-    while (actual != NULL)
-    {
-        if (actual->getIndice() == indice)
-        {
-            cout << "Nodo encontrado: " << endl;
-            cout << "Indice: " << actual->getIndice();
-            cout << " Cancion: " << actual->getCancion()->getNombre();
-            cout << " Path: " << actual->getCancion()->getPath() << endl;
-            break;
-        }
-        actual = actual->getSiguiente();
-    }
-}
-
-Nodo *ListaCanciones::obtenerNodo(int indice)
-{
-    Nodo *actual = this->cabeza;
-    if (this->cabeza == NULL)
-    {
-        cout << "Lista Vacia" << endl;
-    }
-    else
-    {
-        while (actual != NULL)
-        {
-            if (actual->getIndice() == indice)
-            {
-                break;
-            }
-            actual = actual->getSiguiente();
-        }
-    }
-    if (actual == NULL)
-    {
-        cout << "Nodo no encontrado" << endl;
-        return NULL;
-    }
-
-    return actual;
+ListaCanciones::~ListaCanciones(){
+    cout<<"Destruyendo Lista: "<<this->nombre;
+    cout<<" Descripcion: "<<this->descripcion<<endl;
 }
 
 string ListaCanciones::getNombre(){
@@ -227,4 +35,182 @@ void ListaCanciones::setDescripcion(string descripcion){
     this->descripcion = descripcion;
 }
 
+Nodo* ListaCanciones::getPrimero(){
+    return this->primero;
+}
 
+void ListaCanciones::setPrimero(Nodo* primero){
+    this->primero = primero;
+}
+
+Nodo* ListaCanciones::getUltimo(){
+    return this->ultimo;
+}
+
+void ListaCanciones::setUltimo(Nodo* ultimo){
+    this->ultimo = ultimo;
+}
+
+void ListaCanciones::insertarCancion(Cancion* cancion){
+    Nodo* nuevo = new Nodo(cancion);
+    if(this->primero == NULL){
+        this->primero = nuevo;
+        this->ultimo = nuevo;
+
+        primero->setSiguiente(this->primero);
+
+        ultimo->setAnterior(this->ultimo);
+
+        numeroElementos++;
+        primero->setIndice(numeroElementos);
+        cout<<"Cancion agregada con exito: "<<nuevo->getCancion()->getNombre()<<endl;
+    } else {
+        ultimo->setSiguiente(nuevo);
+        nuevo->setSiguiente(this->primero);
+        nuevo->setAnterior(this->ultimo);
+        this->ultimo = nuevo;
+
+        primero->setAnterior(this->ultimo);
+
+        numeroElementos++;
+        nuevo->setIndice(numeroElementos);
+        cout<<"Cancion agregada con exito: "<<nuevo->getCancion()->getNombre()<<endl;
+    }
+}
+
+void ListaCanciones::imprimirLista(){
+    Nodo* actual = this->primero;
+
+    if(this->primero != NULL){
+        do{
+            cout << "Indice: " << actual->getIndice();
+            cout << " Cancion: " << actual->getCancion()->getNombre();
+            cout << " Path: " << actual->getCancion()->getPath() << endl;
+            actual = actual->getSiguiente();
+        } while(actual != this->primero);
+    } else {
+        cout<<"Lista vacia"<<endl;
+    }
+}
+
+void ListaCanciones::buscarElemento(string nombre){
+    Nodo* actual = this->primero;
+    bool encontrado = false;
+
+    if(this->primero != NULL){
+        while(actual!=NULL && encontrado!=true){
+            if(actual->getCancion()->getNombre() == nombre){
+                cout<<"Indice: "<<actual->getIndice();
+                cout<<" Cancion: "<<actual->getCancion()->getNombre()<<" encontrada "<<endl;
+                encontrado=true;
+            }
+            actual = actual->getSiguiente();
+        }
+        if(encontrado==false){
+            cout<<"Cancion: "<<nombre<<" no encontrada"<<endl;
+        }
+    } else {
+        cout<<"Lista vacia"<<endl;
+    }
+}
+
+void ListaCanciones::eliminarElementoPorId(int id){
+    Nodo* actual = this->primero;
+    Nodo* anterior = this->ultimo;
+
+    char eleccion;
+
+    do{
+        if(actual->getIndice() == id){
+            if(actual == this->primero){
+                cout<<"Necesitamos su confirmacion para eliminar el elemento: "<<endl;
+                cout<<"Indice: "<<actual->getIndice()<< " | Nombre: "<<actual->getCancion()->getNombre()<<endl;
+                cout<<"Ingrese Y para eliminar"<<endl;
+                cout<<"Ingrese N para no eliminar la cancion"<<endl;
+                cin>>eleccion;
+
+                if(eleccion=='Y' || eleccion=='y'){
+                    this->primero = this->primero->getSiguiente();
+                    this->ultimo->setSiguiente(this->primero);
+                    this->primero->setAnterior(this->ultimo);
+                    numeroElementos--;
+                    arreglarIndices();
+                    cout<<"Cancion eliminada con exito"<<endl;
+                    break;
+                } else if (eleccion=='N' || eleccion=='n'){
+                    system("clear");
+                    cout<<"Saliendo..."<<endl;
+                    break;
+                } else {
+                    cout<<"Opcion incorrecta"<<endl;
+                    break;
+                }
+            } else if(actual == this->ultimo){
+
+                cout<<"Necesitamos su confirmacion para eliminar el elemento: "<<endl;
+                cout<<"Indice: "<<actual->getIndice()<< " | Nombre: "<<actual->getCancion()->getNombre()<<endl;
+                cout<<"Ingrese Y para eliminar"<<endl;
+                cout<<"Ingrese N para no eliminar la cancion"<<endl;
+                cin>>eleccion;
+
+                if(eleccion=='Y' || eleccion=='y'){
+                    this->ultimo = anterior;
+                    this->primero->setAnterior(this->ultimo);
+                    this->ultimo->setSiguiente(this->primero);
+                    numeroElementos--;
+                    arreglarIndices();
+                    cout<<"Cancion eliminada con exito"<<endl;
+                    break;
+                } else if (eleccion=='N' || eleccion=='n'){
+                    system("clear");
+                    cout<<"Saliendo..."<<endl;
+                    break;
+                } else {
+                    cout<<"Opcion incorrecta"<<endl;
+                    break;
+                }              
+            } else {
+                cout<<"Necesitamos su confirmacion para eliminar el elemento: "<<endl;
+                cout<<"Indice: "<<actual->getIndice()<< " | Nombre: "<<actual->getCancion()->getNombre()<<endl;
+                cout<<"Ingrese Y para eliminar"<<endl;
+                cout<<"Ingrese N para no eliminar la cancion"<<endl;
+                cin>>eleccion;
+
+                if(eleccion=='Y' || eleccion=='y'){
+                    anterior->setSiguiente(actual->getSiguiente());
+                    actual->getSiguiente()->setAnterior(anterior);
+                    numeroElementos--;
+                    arreglarIndices();
+                    cout<<"Cancion eliminada con exito"<<endl;
+                    break;
+                } else if (eleccion=='N' || eleccion=='n'){
+                    system("clear");
+                    cout<<"Saliendo..."<<endl;
+                    break;
+                }  else {
+                    cout<<"Opcion incorrecta"<<endl;
+                    break;
+                }
+            }
+        }
+        anterior = actual;
+        actual = actual->getSiguiente();
+    } while(actual!=this->primero);
+}
+
+void ListaCanciones::arreglarIndices(){
+
+    Nodo* actual = this->primero;
+    int contador = 1;
+
+    if(this->primero != NULL){
+        do{
+            actual->setIndice(contador);
+            contador++;
+            actual = actual->getSiguiente();
+        }
+        while(actual!=this->primero);
+    } else {
+        cout<<"Lista vacia"<<endl;
+    }
+}

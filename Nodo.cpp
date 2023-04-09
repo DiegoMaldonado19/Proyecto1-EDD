@@ -1,29 +1,40 @@
 #include "Nodo.hpp"
 
-Nodo::Nodo(Cancion *cancion, Nodo *siguiente){
-    this->cancion = cancion;
-    this->siguiente = siguiente;
+using namespace std;
+
+Nodo::Nodo(Cancion* cancion){
+    this->anterior=NULL;
+    this->siguiente=NULL;
+    this->cancion=cancion;
     this->indice=0;
 }
 
 Nodo::~Nodo(){
-    cout<<"Eliminando Cancion "<<this->cancion->getNombre()<<endl;
+    cout<<"Destruyendo Nodo: "<<this->cancion->getNombre()<<endl;
 }
 
-Cancion* Nodo::getCancion(){
-    return this->cancion;
+Nodo* Nodo::getAnterior(){
+    return this->anterior;
 }
 
-void Nodo::setCancion(Cancion *cancion){
-    this->cancion = cancion;
+void Nodo::setAnterior(Nodo* anterior){
+    this->anterior = anterior;
 }
 
 Nodo* Nodo::getSiguiente(){
     return this->siguiente;
 }
 
-void Nodo::setSiguiente(Nodo *siguiente){
+void Nodo::setSiguiente(Nodo* siguiente){
     this->siguiente = siguiente;
+}
+
+Cancion* Nodo::getCancion(){
+    return this->cancion;
+}
+
+void Nodo::setCancion(Cancion* cancion){
+    this->cancion = cancion;
 }
 
 int Nodo::getIndice(){

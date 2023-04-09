@@ -44,7 +44,7 @@ int Pila::getTamanio(){
 
 void Pila::imprimirPila(){
     for (int i=0; i<this->top; i++){
-        cout<<"Indice: "<<i<<" Cancion: "<<this->array[i]->getNombre()<<endl;
+        cout<<"Indice: "<<i+1<<" Cancion: "<<this->array[i]->getNombre()<<endl;
     }
 }
 
