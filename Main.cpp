@@ -21,6 +21,72 @@ string revisarEspacioEnBlanco(string nombre){
     return nombre;
 }
 
+void menuReproduccion(ListaPlaylist* playlist){
+    int opcion=0;
+    int opcionReproduccion=0;
+    int opcionReproduccionRep=0;
+    bool salir=false;
+    
+    system("clear");
+    cout<<"Menu de reproduccion"<<endl;
+    cout<<"_______________________________________"<<endl;
+    cout<<"1) Reproduccion normal"<<endl;
+    cout<<"2) Reproduccion en Repeticion"<<endl;
+    cout<<"3) Salir"<<endl;
+    cin>>opcion;
+    switch(opcion){
+        case 1:
+            salir=false;
+            if(playlist->isVacia()){
+                system("clear");
+                cout<<"Debe crear al menos una lista para poder reproducirla, puede crearla en la opcion 2 del menu principal"<<endl;
+                system("read -p 'Presione enter para continuar...' var");
+            } else {
+                system("clear");
+                cout<<"Listas disponibles para reproduccion:"<<endl;
+                playlist->graficarListaPlaylist();
+
+                cout<<"Seleccione una lista para reproducir"<<endl;
+                cin>>opcionReproduccion;
+
+                playlist->reproduccionNormal(opcionReproduccion);
+            }
+        break;
+
+        case 2:
+            salir=false;
+            if(playlist->isVacia()){
+                system("clear");
+                cout<<"Debe crear al menos una lista para poder reproducirla, puede crearla en la opcion 2 del menu principal"<<endl;
+                system("read -p 'Presione enter para continuar...' var");
+            } else {
+                system("clear");
+                cout<<"Listas disponibles para reproduccion:"<<endl;
+                playlist->graficarListaPlaylist();
+
+                cout<<"Seleccione una lista para reproducir"<<endl;
+                cin>>opcionReproduccionRep;
+
+                playlist->reproduccionRepeticion(opcionReproduccionRep);
+            }
+        break;
+
+        case 3:
+            system("clear");
+            salir=true;
+            cout<<"Saliendo"<<endl;
+            system("read -p 'Presione enter para continuar...' var");
+        break;
+
+        default:
+            system("clear");
+            salir=false;
+            cout<<"Opcion incorrecta"<<endl;
+            system("read -p 'Presione enter para continuar...' var");
+        break;
+    }
+}
+
 ListaPlaylist* menuPlaylist(ListaCanciones* store){
     ListaPlaylist* playlist = new ListaPlaylist();
     int opcion=0;
@@ -31,12 +97,12 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
     int idPlaylist2=0;
     int idPlaylist3=0;
     int idCancion=0;
-    string nombreCancion;
-    string pathCancion;
+    int idCancionIngreso=0;
     ListaCanciones* listaNueva;
     NodoPlaylist* nodoNuevo;
     Cancion* cancion;
     string resultado;
+    Cancion* pivote;
 
     while(salir==false){
         system("clear");
@@ -94,29 +160,33 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
                 salir=false;
                 system("clear");
                 playlist->graficarListaPlaylist();
+                system("read -p 'Presione enter para continuar...' var");
             break;
 
             case 5:
                 salir=false;
                 system("clear");
+                playlist->graficarListaPlaylist();
                 cout<<"Ingresa el id de la playlist donde deseas agregar la cancion"<<endl;
                 cin>>idPlaylist2;
-                cout<<"Ingrese el nombre de la cancion, recuerde ingresar la extension .mp3"<<endl;
-                getline(cin, nombreCancion);
-                resultado = revisarEspacioEnBlanco(nombreCancion);
-                nombreCancion = revisarEspacioEnBlanco(nombreCancion);
-                cout<<"Ingrese el path de la cancion, recuerde que debe de ser algo asi: "<<endl;
-                cout<<"Path correcto: /home/diego/Escritorio/LabEDD/Proyecto1/Music/"<<endl;
-                cin>>pathCancion;
-                cancion = new Cancion(nombreCancion, pathCancion);
 
-                playlist->ingresarCancion(cancion, idPlaylist2);
+                cout<<"Canciones en store: "<<endl;
+                cout<<"_____________________________"<<endl;
+                store->imprimirLista();
+
+                cout<<"Ingrese el indice de la cancion que desea agregar"<<endl;
+                cin>>idCancionIngreso;
+
+                pivote = store->obtenerCancion(idCancionIngreso);
+
+                playlist->ingresarCancion(pivote, idPlaylist2);
 
             break;
 
             case 6:
                 salir=false;
                 system("clear");
+                playlist->graficarListaPlaylist();
                 cout<<"Ingresa el id de la playlist donde deseas eliminar la cancion"<<endl;
                 cin>>idPlaylist3;
 
@@ -130,12 +200,14 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
             break;
 
             case 7:
-                salir=false;
+                system("clear");
+                salir=true;
                 cout<<"Saliendo"<<endl;
                 system("read -p 'Presione enter para continuar...' var");
             break;
 
             default:
+                system("clear");
                 salir=false;
                 cout<<"Opcion incorrecta"<<endl;
                 system("read -p 'Presione enter para continuar...' var");
@@ -178,8 +250,8 @@ ListaCanciones* menuStore(){
                 getline(cin, nombre);
                 resultado = revisarEspacioEnBlanco(nombre);
                 cout<<"Ingrese el path de la cancion, recuerde que debe de ser asi: /home/diego/Escritorio/LabEDD/Proyecto1/Music/"<<endl;
-                cin>>path;
-                cancion = new Cancion(nombre, path);
+                getline(cin, path);
+                cancion = new Cancion(resultado, path);
                 listaCanciones->insertarCancion(cancion);
                 salir=false;
             break;
@@ -208,7 +280,7 @@ ListaCanciones* menuStore(){
                         listaCanciones->imprimirLista();
 
                         cout<<"Ingrese el nombre de la cancion que desea eliminar"<<endl;
-                        cin>>nombreEliminacion;
+                        getline(cin, nombreEliminacion);
 
                         listaCanciones->eliminarElementoPorNombre(nombreEliminacion);
 
@@ -225,17 +297,17 @@ ListaCanciones* menuStore(){
             case 3:
                 system("clear");
                 cout<<"Ingrese el nombre de la cancion que desea buscar"<<endl;
-                cin>>nombreBusqueda;
+                getline(cin, nombreBusqueda);
 
                 listaCanciones->buscarElemento(nombreBusqueda);
                 salir=false;
             break;
 
             case 4:
+                salir=false;
                 system("clear");
                 listaCanciones->imprimirLista();
                 system("read -p 'Presione enter para continuar...' var");
-                salir=false;
             break;
 
             case 5:
@@ -256,6 +328,7 @@ ListaCanciones* menuStore(){
 }
 
 void bienvenida(){
+    system("clear");
     cout<<"Bienvenido!"<<endl;
     cout<<"Proyecto 1 - Spotify por consola"<<endl;
     cout<<"Diego José Maldonado Monterroso - 201931811"<<endl;
@@ -278,7 +351,8 @@ void menu(){
         cout<<"1) Store"<<endl;
         cout<<"2) Playlist Personalizadas"<<endl;
         cout<<"3) Carga Masiva de datos"<<endl;
-        cout<<"4) Salir"<<endl;
+        cout<<"4) Reproduccion"<<endl;
+        cout<<"5) Salir"<<endl;
         cout<<"Ingrese una opcion valida..."<<endl;
         cin>>opcion;
         cin.ignore();
@@ -301,6 +375,10 @@ void menu(){
             break;
 
             case 4:
+                menuReproduccion(playlist);
+            break;
+
+            case 5:
                 system("clear");
                 salir=true;
                 cout<<"Saliendo..."<<endl;
@@ -315,8 +393,6 @@ void menu(){
             break;
         }
     }
-
-
 }
 
 int main(){

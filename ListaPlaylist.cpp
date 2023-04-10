@@ -45,6 +45,7 @@ void ListaPlaylist::graficarListaPlaylist()
         cout << "Indice: " << actual->getIndice();
         cout << " Lista: " << actual->getLista()->getNombre();
         cout << " Descripcion: " << actual->getLista()->getDescripcion() << endl;
+        cout <<"______________________________________________________________________"<<endl;
 
         actual = actual->getSiguiente();
     }
@@ -221,6 +222,46 @@ void ListaPlaylist::imprimirListaEspecifica(int id){
             if (actual->getIndice() == id)
             {
                 actual->getLista()->imprimirLista();
+                break;
+            }
+            actual = actual->getSiguiente();
+        }
+    }
+}
+
+void ListaPlaylist::reproduccionNormal(int id){
+     NodoPlaylist *actual = this->cabeza;
+    if (this->cabeza == NULL)
+    {
+        cout << "Lista Vacia" << endl;
+    }
+    else
+    {
+        while (actual != NULL)
+        {
+            if (actual->getIndice() == id)
+            {
+                actual->getLista()->reproduccionNormal();
+                break;
+            }
+            actual = actual->getSiguiente();
+        }
+    }
+}
+
+void ListaPlaylist::reproduccionRepeticion(int id){
+     NodoPlaylist *actual = this->cabeza;
+    if (this->cabeza == NULL)
+    {
+        cout << "Lista Vacia" << endl;
+    }
+    else
+    {
+        while (actual != NULL)
+        {
+            if (actual->getIndice() == id)
+            {
+                actual->getLista()->reproduccionRepeticion();
                 break;
             }
             actual = actual->getSiguiente();

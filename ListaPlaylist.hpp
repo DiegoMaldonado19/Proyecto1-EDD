@@ -34,4 +34,8 @@ class ListaPlaylist{
         void eliminarCancion(int cancionId, int id);
 
         void imprimirListaEspecifica(int id);
+
+        void reproduccionNormal(int id);
+
+        void reproduccionRepeticion(int id);
 };

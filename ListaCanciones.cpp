@@ -101,7 +101,7 @@ void ListaCanciones::buscarElemento(string nombre){
     bool encontrado = false;
 
     if(this->primero != NULL){
-        while(actual!=NULL && encontrado!=true){
+       do{
             if(actual->getCancion()->getNombre() == nombre){
                 cout<<"Indice: "<<actual->getIndice();
                 cout<<" Cancion: "<<actual->getCancion()->getNombre()<<" encontrada "<<endl;
@@ -110,6 +110,8 @@ void ListaCanciones::buscarElemento(string nombre){
             }
             actual = actual->getSiguiente();
         }
+        while(actual!=this->primero && encontrado!=true);
+
         if(encontrado==false){
             cout<<"Cancion: "<<nombre<<" no encontrada"<<endl;
             system("read -p 'Presione enter para continuar...' var");
@@ -125,7 +127,7 @@ Cancion* ListaCanciones::obtenerCancion(int id){
     bool encontrado = false;
 
     if(this->primero != NULL){
-        while(actual!=NULL && encontrado!=true){
+        do{
             if(actual->getIndice() == id){
                 cout<<"Indice: "<<actual->getIndice();
                 cout<<" Cancion: "<<actual->getCancion()->getNombre()<<" encontrada "<<endl;
@@ -135,6 +137,8 @@ Cancion* ListaCanciones::obtenerCancion(int id){
             }
             actual = actual->getSiguiente();
         }
+        while(actual!=this->primero && encontrado!=true);
+
         if(encontrado==false){
             cout<<"Cancion: "<<nombre<<" no encontrada"<<endl;
             system("read -p 'Presione enter para continuar...' var");
