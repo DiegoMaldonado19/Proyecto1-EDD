@@ -21,6 +21,64 @@ string revisarEspacioEnBlanco(string nombre){
     return nombre;
 }
 
+ListaCanciones* crearStore(){
+    ListaCanciones* store = new ListaCanciones("Lista creada", "Lista cargada por sistema");
+
+    Cancion *cancion = new Cancion("'Bad Bunny - Moscow Mule.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion2 = new Cancion("'Bad Bunny - Yonaguni.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion3 = new Cancion("'Bad Bunny ft Bomba Estéreo - Ojitos Lindos.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion4 = new Cancion("'BAD BUNNY x JHAY CORTEZ - DÁKITI.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion5 = new Cancion("'Ferxxo - Pantysito.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion6 = new Cancion("'Jugaste y Sufri - Eslabon Armado ft DannyLux.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion7 = new Cancion("'Megadeth - Holy WarsThe Punishment Due.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion8 = new Cancion("'Metallica - One.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion9 = new Cancion("'Recuerda Bien - Eslabon Armado.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+    Cancion *cancion10 = new Cancion("'Slayer - Seasons In The Abyss.mp3'", "/home/diego/Escritorio/LabEDD/Proyecto1/Music/");
+
+    store->insertarCancion(cancion);
+    store->insertarCancion(cancion2);
+    store->insertarCancion(cancion3);
+    store->insertarCancion(cancion4);
+    store->insertarCancion(cancion5);
+    store->insertarCancion(cancion6);
+    store->insertarCancion(cancion7);
+    store->insertarCancion(cancion8);
+    store->insertarCancion(cancion9);
+    store->insertarCancion(cancion10);
+
+    return store;
+}
+
+ListaPlaylist* añadirListas(){
+    ListaPlaylist* playlist = new ListaPlaylist();
+    ListaCanciones* lista = new ListaCanciones("Perreo", "Para perrear hasta el subsuelo");
+    ListaCanciones* lista2 = new ListaCanciones("Las mas perronas", "Estas no tienen comparacion");
+    NodoPlaylist* nodo = new NodoPlaylist(lista, NULL);
+    NodoPlaylist* nodo2 = new NodoPlaylist(lista2, NULL);
+    playlist->insertarListaPlaylist(nodo);
+    playlist->insertarListaPlaylist(nodo2);
+
+    return playlist;
+}
+
+ListaPlaylist* crearListaPlaylist(ListaCanciones* store, ListaPlaylist* playlist){
+    Cancion* pivote;
+
+   
+    for(int j=1; j<=5; j++){
+        pivote = store->obtenerCancionProvidencial(j);
+
+        playlist->ingresarCancion(pivote, 1);
+    }
+    for(int k=6; k<=10; k++){
+        pivote = store->obtenerCancionProvidencial(k);
+
+        playlist->ingresarCancion(pivote, 2);
+    }
+
+    return playlist;
+}
+
 void menuReproduccion(ListaPlaylist* playlist){
     int opcion=0;
     int opcionReproduccion=0;
@@ -134,69 +192,79 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
 
             case 2:
                 salir=false;
-                system("clear");
-                playlist->graficarListaPlaylist();
+                if(playlist->isVacia()){
+                    system("clear");
+                    cout<<"Lista Vacia"<<endl;
+                }
+                else {
+                    system("clear");
+                    playlist->graficarListaPlaylist();
 
-                cout<<"Ingresa el id de la playlist a eliminar"<<endl;
-                cin>>idPlaylist;
+                    cout<<"Ingresa el id de la playlist a eliminar"<<endl;
+                    cin>>idPlaylist;
 
-                playlist->eliminarListaPorIndice(idPlaylist);
-                
+                    playlist->eliminarListaPorIndice(idPlaylist);
+                }   
             break;
 
             case 3:
                 salir=false;
-                system("clear");
-                playlist->graficarListaPlaylist();
+                if(playlist->isVacia()){
+                    system("clear");
+                    cout<<"Lista Vacia"<<endl;
+                } else {
+                    system("clear");
+                    playlist->graficarListaPlaylist();
 
-                cout<<"Ingresa el id de la playlist a modificar"<<endl;
-                cin>>idPlaylist;
+                    cout<<"Ingresa el id de la playlist a modificar"<<endl;
+                    cin>>idPlaylist;
 
-                playlist->actualizarDatosListaPorIndice(idPlaylist);
-
-            break;
-
-            case 4:
-                salir=false;
-                system("clear");
-                playlist->graficarListaPlaylist();
-                system("read -p 'Presione enter para continuar...' var");
+                    playlist->actualizarDatosListaPorIndice(idPlaylist);
+                }
             break;
 
             case 5:
                 salir=false;
-                system("clear");
-                playlist->graficarListaPlaylist();
-                cout<<"Ingresa el id de la playlist donde deseas agregar la cancion"<<endl;
-                cin>>idPlaylist2;
+                if(playlist->isVacia()){
+                    system("clear");
+                    cout<<"Lista Vacia"<<endl;
+                } else {
+                    system("clear");
+                    playlist->graficarListaPlaylist();
+                    cout<<"Ingresa el id de la playlist donde deseas agregar la cancion"<<endl;
+                    cin>>idPlaylist2;
 
-                cout<<"Canciones en store: "<<endl;
-                cout<<"_____________________________"<<endl;
-                store->imprimirLista();
+                    cout<<"Canciones en store: "<<endl;
+                    cout<<"_____________________________"<<endl;
+                    store->imprimirLista();
 
-                cout<<"Ingrese el indice de la cancion que desea agregar"<<endl;
-                cin>>idCancionIngreso;
+                    cout<<"Ingrese el indice de la cancion que desea agregar"<<endl;
+                    cin>>idCancionIngreso;
 
-                pivote = store->obtenerCancion(idCancionIngreso);
+                    pivote = store->obtenerCancion(idCancionIngreso);
 
-                playlist->ingresarCancion(pivote, idPlaylist2);
-
+                    playlist->ingresarCancion(pivote, idPlaylist2);
+                }
             break;
 
             case 6:
                 salir=false;
-                system("clear");
-                playlist->graficarListaPlaylist();
-                cout<<"Ingresa el id de la playlist donde deseas eliminar la cancion"<<endl;
-                cin>>idPlaylist3;
+                if(playlist->isVacia()){
+                    system("clear");
+                    cout<<"Lista Vacia"<<endl;
+                } else {
+                    system("clear");
+                    playlist->graficarListaPlaylist();
+                    cout<<"Ingresa el id de la playlist donde deseas eliminar la cancion"<<endl;
+                    cin>>idPlaylist3;
 
-                playlist->imprimirListaEspecifica(idPlaylist3);
+                    playlist->imprimirListaEspecifica(idPlaylist3);
 
-                cout<<"Ingrese el id de la cancion"<<endl;
-                cin>>idCancion;
+                    cout<<"Ingrese el id de la cancion"<<endl;
+                    cin>>idCancion;
 
-                playlist->eliminarCancion(idCancion, idPlaylist3);
-
+                    playlist->eliminarCancion(idCancion, idPlaylist3);
+                }
             break;
 
             case 7:
@@ -338,9 +406,14 @@ void bienvenida(){
 void menu(){
     int opcion=0;
     bool salir=false;
+    int op=0;
+    int opA=0;
 
     ListaCanciones* store;
     ListaPlaylist* playlist;
+    ListaPlaylist* playlistCargada;
+    ListaPlaylist* pivote;
+    ListaCanciones* storeCargada;
 
     bienvenida();
 
@@ -352,7 +425,8 @@ void menu(){
         cout<<"2) Playlist Personalizadas"<<endl;
         cout<<"3) Carga Masiva de datos"<<endl;
         cout<<"4) Reproduccion"<<endl;
-        cout<<"5) Salir"<<endl;
+        cout<<"5) Visualizar Listas"<<endl;
+        cout<<"6) Salir"<<endl;
         cout<<"Ingrese una opcion valida..."<<endl;
         cin>>opcion;
         cin.ignore();
@@ -371,7 +445,33 @@ void menu(){
 
             case 3:
                 salir=false;
-                /*TODO: implementar carga masiva de datos*/
+                system("clear");
+                cout<<"Desea cargar datos?"<<endl;
+                cout<<"1) SI"<<endl;
+                cout<<"2) NO"<<endl;
+                cout<<"Ingrese una opcion valida..."<<endl;
+                cin>>op;
+                if(op==1){
+                    system("clear");
+                    store= crearStore();
+                    system("read -p 'Presione enter para continuar...' var");
+                    system("clear");
+                    playlist = añadirListas();
+                    system("read -p 'Presione enter para continuar...' var");
+                    system("clear");
+                    playlist = crearListaPlaylist(store, playlist);
+                    system("read -p 'Presione enter para continuar...' var");
+                    system("clear");
+                } else if(op==2){
+                    system("clear");
+                    cout<<"Saliendo..."<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
+                } else {
+                    system("clear");
+                    cout<<"Opcion Invalida..."<<endl;
+                    cout<<"Saliendo..."<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
+                }
             break;
 
             case 4:
@@ -379,6 +479,38 @@ void menu(){
             break;
 
             case 5:
+                salir=false;
+                system("clear");
+                cout<<"1)Store"<<endl;
+                cout<<"2)Listas Playlist"<<endl;
+                cout<<"Ingrese una opcion valida..."<<endl;
+                cin>>opA;
+                if(opA==1){
+                    if(store->isVacia()){
+                        system("clear");
+                        cout<<"Lista Vacia"<<endl;
+                    } else {
+                        system("clear");
+                        store->imprimirLista();
+                        system("read -p 'Presione enter para continuar...' var");
+                    }
+                } else if(opA==2){
+                    if(playlist->isVacia()){
+                        system("clear");
+                        cout<<"Lista Vacia"<<endl;
+                    } else {
+                        system("clear");
+                        playlist->graficarListaPlaylist();
+                        system("read -p 'Presione enter para continuar...' var");
+                    }
+                } else {
+                    system("clear");
+                    cout<<"Opcion invalida..."<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
+                }  
+            break;
+
+            case 6:
                 system("clear");
                 salir=true;
                 cout<<"Saliendo..."<<endl;

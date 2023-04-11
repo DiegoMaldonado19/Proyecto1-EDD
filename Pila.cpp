@@ -15,7 +15,6 @@ void Pila::push(Cancion *cancion){
         cout<<"Pila llena"<<endl;
     }
     else {
-        cout<<"Insertando: "<<cancion->getNombre()<<endl;
         this->array[top] = new Cancion(cancion->getNombre(), cancion->getPath());
         top++;
     }

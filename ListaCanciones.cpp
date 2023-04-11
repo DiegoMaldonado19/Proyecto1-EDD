@@ -150,6 +150,26 @@ Cancion* ListaCanciones::obtenerCancion(int id){
     return actual->getCancion();
 }
 
+Cancion* ListaCanciones::obtenerCancionProvidencial(int id){
+    Nodo* actual = this->primero;
+    bool encontrado = false;
+
+    if(this->primero != NULL){
+        do{
+            if(actual->getIndice() == id){
+                encontrado=true;
+                return actual->getCancion();
+            }
+            actual = actual->getSiguiente();
+        }
+        while(actual!=this->primero && encontrado!=true);
+    } else {
+        cout<<"Lista vacia"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
+    }
+    return actual->getCancion();
+}
+
 void ListaCanciones::eliminarElementoPorId(int id){
     Nodo* actual = this->primero;
     Nodo* anterior = this->ultimo;
@@ -364,8 +384,13 @@ void ListaCanciones::reproduccionNormal(){
         do{ 
             reproduccion(actual->getCancion());
             actual = actual->getSiguiente();
-            pila->pop();
-            visualizarListaDeReproduccion(pila);
+            if(pila->vacia()){
+                
+            }
+            else{
+                pila->pop();
+                visualizarListaDeReproduccion(pila);
+            }
             system("read -p 'Presione enter para continuar...' var");
         }
         while(actual!=this->primero);
@@ -385,8 +410,13 @@ void ListaCanciones::reproduccionRepeticion(){
         do{
             reproduccion(actual->getCancion());
             actual = actual->getSiguiente();
-            pila->pop();
-            visualizarListaDeReproduccion(pila);
+            if(pila->vacia()){
+                pila = listaDeReproduccion(actual->getCancion());
+            }
+            else{
+                pila->pop();
+                visualizarListaDeReproduccion(pila);
+            }
             system("read -p 'Presione enter para continuar...' var");
             cout<<"\n\n"<<endl;
             cout<<"Desea salir de la reproduccion en repeticion?"<<endl;
@@ -439,4 +469,11 @@ Pila* ListaCanciones::listaDeReproduccion(Cancion* cancionActual){
 void ListaCanciones::visualizarListaDeReproduccion(Pila* pila){
     cout<<"Lista de Reproduccion"<<endl;
     pila->imprimirPila();
+}
+
+bool ListaCanciones::isVacia(){
+    if(this->primero==NULL){
+        return true;
+    }
+    return false;
 }

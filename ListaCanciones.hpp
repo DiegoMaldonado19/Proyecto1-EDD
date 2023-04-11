@@ -58,4 +58,8 @@ class ListaCanciones{
         void visualizarListaDeReproduccion(Pila* pila);
 
         Cancion* obtenerCancion(int id);
+
+        Cancion* obtenerCancionProvidencial(int id);
+
+        bool isVacia();
 };

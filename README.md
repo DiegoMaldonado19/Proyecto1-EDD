@@ -11,13 +11,20 @@ _Se aplicaron diferentes tipos de estructuras de datos:_
 * _Lista Doblemente Enlazada Circular._
 * _Pila._
 
-_Así como se implementa la carga masiva de datos, mediante la lectura de un archivo en formato xml._
+_En un principio se buscaba la lectura de un archivo XML, ya no me dio tiempo, pero el programa tiene implementada una carga local de datos para poder simular la carga masiva de datos._
 
 _Para la reproducción de música se utilizó el reproducctor mpg123, con el cual se pueden reproduccir canciones desde consola._
 
+_Pueden agregar canciones usando las canciones dentro de la carpeta Music._
+_Bajo este path: /home/diego/Escritorio/LabEDD/Proyecto1/Music/_
+_De cualquier manera, si usted tuviera una cancion ubicada dentro de su sistema la puede abrir, solamente debe recordar de agregar la contradiagonal '/' como ultimo elemento de su path, como se muestra en el path de ejemplo._
+
 _Hecho puramente con c++._
 
-_Comando para compilar con gcc: gcc test.cpp ListaPlaylist.cpp ListaPlaylist.hpp NodoPlaylist.cpp NodoPlaylist.hpp ListaCanciones.cpp ListaCanciones.hpp Nodo.cpp Nodo.hpp Cancion.cpp Cancion.hpp Pila.cpp Pila.hpp -lstdc++ -g -o salidaPila_
+_Comando para compilar con gcc:_
+_gcc Main.cpp ListaPlaylist.cpp ListaPlaylist.hpp NodoPlaylist.cpp NodoPlaylist.hpp ListaCanciones.cpp ListaCanciones.hpp Nodo.cpp Nodo.hpp Cancion.cpp Cancion.hpp Pila.cpp Pila.hpp -lstdc++ -g -o salida_
+
+_Comando para ejecutar el programa: ./salida_
 
 ## Autor ✒️
 
