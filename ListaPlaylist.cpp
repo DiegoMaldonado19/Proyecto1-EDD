@@ -182,6 +182,7 @@ void ListaPlaylist::ingresarCancion(Cancion* cancion, int id){
             if (actual->getIndice() == id)
             {
                 actual->getLista()->insertarCancion(cancion);
+                actual->getLista()->arreglarIndices();
                 break;
             }
             actual = actual->getSiguiente();
@@ -202,6 +203,7 @@ void ListaPlaylist::eliminarCancion(int cancionId, int id){
             if (actual->getIndice() == id)
             {
                 actual->getLista()->eliminarElementoPorId(cancionId);
+                actual->getLista()->arreglarIndices();
                 break;
             }
             actual = actual->getSiguiente();
@@ -220,7 +222,8 @@ void ListaPlaylist::imprimirListaEspecifica(int id){
         while (actual != NULL)
         {
             if (actual->getIndice() == id)
-            {
+            {   
+                actual->getLista()->arreglarIndices();
                 actual->getLista()->imprimirLista();
                 break;
             }

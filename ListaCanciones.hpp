@@ -62,4 +62,6 @@ class ListaCanciones{
         Cancion* obtenerCancionProvidencial(int id);
 
         bool isVacia();
+
+        void reiniciarNumeroElementos();
 };

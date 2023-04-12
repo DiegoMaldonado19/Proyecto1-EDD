@@ -51,6 +51,17 @@ void ListaCanciones::setUltimo(Nodo* ultimo){
     this->ultimo = ultimo;
 }
 
+void ListaCanciones::reiniciarNumeroElementos(){
+    Nodo* actual = this->primero;
+    int contador=0;
+    do{
+        actual = actual->getSiguiente();
+        contador++;
+    } while(actual != this->primero);
+
+    numeroElementos = contador;
+}
+
 void ListaCanciones::insertarCancion(Cancion* cancion){
     Nodo* nuevo = new Nodo(cancion);
     if(this->primero == NULL){

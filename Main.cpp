@@ -76,6 +76,8 @@ ListaPlaylist* crearListaPlaylist(ListaCanciones* store, ListaPlaylist* playlist
         playlist->ingresarCancion(pivote, 2);
     }
 
+    store->reiniciarNumeroElementos();
+
     return playlist;
 }
 
@@ -145,8 +147,7 @@ void menuReproduccion(ListaPlaylist* playlist){
     }
 }
 
-ListaPlaylist* menuPlaylist(ListaCanciones* store){
-    ListaPlaylist* playlist = new ListaPlaylist();
+ListaPlaylist* menuPlaylist(ListaCanciones* store,ListaPlaylist* playlist){
     int opcion=0;
     bool salir=0;
     string nombrePlaylist;
@@ -223,6 +224,19 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
                 }
             break;
 
+            case 4:
+                salir=false;
+                if(playlist->isVacia()){
+                    system("clear");
+                    cout<<"Lista Vacia"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
+                } else {
+                    system("clear");
+                    playlist->graficarListaPlaylist();
+                    system("read -p 'Presione enter para continuar...' var");
+                }
+            break;
+
             case 5:
                 salir=false;
                 if(playlist->isVacia()){
@@ -286,10 +300,9 @@ ListaPlaylist* menuPlaylist(ListaCanciones* store){
     return playlist;
 }
 
-ListaCanciones* menuStore(){
+ListaCanciones* menuStore(ListaCanciones* listaCanciones){
     int opcion=0;
     bool salir=false;
-    ListaCanciones* listaCanciones = new ListaCanciones("Spotify Store", "Tienda de canciones, que contiene todas las canciones disponibles para escuchar");
     string nombre;
     string path;
     int opcion2=0;
@@ -409,11 +422,8 @@ void menu(){
     int op=0;
     int opA=0;
 
-    ListaCanciones* store;
+    ListaCanciones* store = new ListaCanciones("Spotify Store", "Tienda de canciones, que contiene todas las canciones disponibles para escuchar");
     ListaPlaylist* playlist;
-    ListaPlaylist* playlistCargada;
-    ListaPlaylist* pivote;
-    ListaCanciones* storeCargada;
 
     bienvenida();
 
@@ -434,12 +444,12 @@ void menu(){
             case 1:
                 system("clear");
                 salir=false;
-                store = menuStore();
+                store = menuStore(store);
             break;
 
             case 2:
                 system("clear");
-                playlist = menuPlaylist(store);
+                playlist = menuPlaylist(store, playlist);
                 salir=false;
             break;
 
