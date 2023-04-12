@@ -161,6 +161,35 @@ Cancion* ListaCanciones::obtenerCancion(int id){
     return actual->getCancion();
 }
 
+void ListaCanciones::cambiarIdCancion(string nombre, int id){
+    Nodo* actual = this->primero;
+    bool encontrado = false;
+
+    if(this->primero != NULL){
+        do{
+            if(actual->getCancion()->getNombre() == nombre){
+                encontrado=true;
+                if(id>this->numeroElementos){
+                    cout<<"El indice ingresado es mayor al disponible en la lista de canciones"<<endl;
+                    system("read -p 'Presione enter para continuar...' var");
+                } else {
+                    actual->setIndice(id);
+                }
+            }
+            actual = actual->getSiguiente();
+        }
+        while(actual!=this->primero && encontrado!=true);
+
+        if(encontrado==false){
+            cout<<"Cancion: "<<nombre<<" no encontrada"<<endl;
+            system("read -p 'Presione enter para continuar...' var");
+        }
+    } else {
+        cout<<"Lista vacia"<<endl;
+        system("read -p 'Presione enter para continuar...' var");
+    }
+}
+
 Cancion* ListaCanciones::obtenerCancionProvidencial(int id){
     Nodo* actual = this->primero;
     bool encontrado = false;

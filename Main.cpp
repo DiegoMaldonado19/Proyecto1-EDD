@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <string>
 #include <locale>
+#include <iostream>
+#include "XMLReader.hpp"
+#include "tinyxml2.h"
 
-using namespace std;
+using namespace tinyxml2;
 
 string revisarEspacioEnBlanco(string nombre){
     int espacios=0;
@@ -311,7 +314,7 @@ ListaCanciones* menuStore(ListaCanciones* listaCanciones){
     string nombreBusqueda;
     Cancion* cancion;
     string resultado;
-    string hola;
+    string nombreRaiz;
 
     while(salir==false){
         system("clear");
@@ -421,9 +424,15 @@ void menu(){
     bool salir=false;
     int op=0;
     int opA=0;
+    string pathArchivo;
+    string nombreRaiz;
+    XMLDocument doc;
+    XMLElement* raiz;
 
     ListaCanciones* store = new ListaCanciones("Spotify Store", "Tienda de canciones, que contiene todas las canciones disponibles para escuchar");
     ListaPlaylist* playlist;
+
+    XMLReader* reader = new XMLReader();
 
     bienvenida();
 
@@ -459,6 +468,7 @@ void menu(){
                 cout<<"Desea cargar datos?"<<endl;
                 cout<<"1) SI"<<endl;
                 cout<<"2) NO"<<endl;
+                cout<<"3) De archivo XML"<<endl;
                 cout<<"Ingrese una opcion valida..."<<endl;
                 cin>>op;
                 if(op==1){
@@ -476,6 +486,24 @@ void menu(){
                     system("clear");
                     cout<<"Saliendo..."<<endl;
                     system("read -p 'Presione enter para continuar...' var");
+                } else if(op==3){
+                    system("clear");
+                    cout<<"Ingrese el path de su archivo junto con su nombre: "<<endl;
+                    getline(cin, pathArchivo);
+                    doc.LoadFile(pathArchivo.c_str());
+                    raiz = doc.FirstChildElement();
+                    nombreRaiz = raiz->Name();
+                    while (raiz != nullptr) {
+                        if (nombreRaiz == "Eliminar" &&  raiz->FirstChildElement("cancion")!= nullptr){
+                            store = reader->eliminarCancionStoreXML(raiz, store);
+                        } else if(nombreRaiz =="Eliminar" &&  raiz->FirstChildElement("Lista")!= nullptr){
+                            playlist = reader->eliminarListaXML(raiz, playlist);
+                        } else if(nombreRaiz == "Insertar" &&  raiz->FirstChildElement("cancion")!= nullptr){
+                            store = reader->storeXML(raiz, store);
+                        } else if(nombreRaiz == "Insertar" &&  raiz->FirstChildElement("Lista")!= nullptr){
+                            playlist = reader->listaXML(raiz, playlist, store);
+                        }
+                    }
                 } else {
                     system("clear");
                     cout<<"Opcion Invalida..."<<endl;

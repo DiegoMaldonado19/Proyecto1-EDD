@@ -95,6 +95,47 @@ void ListaPlaylist::eliminarListaPorIndice(int indice)
     }
 }
 
+void ListaPlaylist::eliminarListaPorNombre(string nombre)
+{
+    if (this->isVacia())
+    {
+        cout << "Lista vacia" << endl;
+        system("read -p 'Presione enter para continuar...' var");
+    }
+    else
+    {
+        if (this->cabeza->getLista()->getNombre()  == nombre)
+        {
+            this->cabeza = this->cabeza->getSiguiente();
+            numeroElementos--;
+            this->arreglarIndices();
+            cout<<"Lista eliminada con exito"<<endl;
+            system("read -p 'Presione enter para continuar...' var");
+        }
+        else
+        {
+            NodoPlaylist *actual = this->cabeza;
+            while (actual->getSiguiente() != NULL && actual->getSiguiente()->getLista()->getNombre() != nombre)
+            {
+                actual = actual->getSiguiente();
+            }
+            if (actual->getSiguiente() == NULL)
+            {
+                cout << "Lista no existe dentro de la lista" << endl;
+                system("read -p 'Presione enter para continuar...' var");
+            }
+            else
+            {
+                actual->setSiguiente(actual->getSiguiente()->getSiguiente());
+                numeroElementos--;
+                cout<<"Lista eliminada con exito"<<endl;
+                system("read -p 'Presione enter para continuar...' var");
+            }
+            this->arreglarIndices();
+        }
+    }
+}
+
 bool ListaPlaylist::isVacia()
 {
     if (this->cabeza == NULL)

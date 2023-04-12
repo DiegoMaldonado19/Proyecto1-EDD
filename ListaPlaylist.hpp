@@ -1,3 +1,5 @@
+#ifndef LISTAPLAYLIST_H
+#define LISTAPLAYLIST_H
 #include <stdlib.h>
 #include <string>
 #include "NodoPlaylist.hpp"
@@ -19,6 +21,8 @@ class ListaPlaylist{
 
         void eliminarListaPorIndice(int indice);
 
+        void eliminarListaPorNombre(string nombre);
+
         bool isVacia();
 
         void graficarListaPlaylist();
@@ -39,3 +43,4 @@ class ListaPlaylist{
 
         void reproduccionRepeticion(int id);
 };
+#endif 

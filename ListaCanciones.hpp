@@ -59,6 +59,8 @@ class ListaCanciones{
 
         Cancion* obtenerCancion(int id);
 
+        void cambiarIdCancion(string nombre, int id);
+
         Cancion* obtenerCancionProvidencial(int id);
 
         bool isVacia();
