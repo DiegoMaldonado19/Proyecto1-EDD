@@ -3,10 +3,11 @@
 #include <string>
 #include <locale>
 #include <iostream>
+/*
 #include "XMLReader.hpp"
-#include "tinyxml2.h"
-
 using namespace tinyxml2;
+using namespace std;
+*/
 
 string revisarEspacioEnBlanco(string nombre){
     int espacios=0;
@@ -426,13 +427,17 @@ void menu(){
     int opA=0;
     string pathArchivo;
     string nombreRaiz;
+
+    /*
     XMLDocument doc;
+    XMLReader* reader = new XMLReader();
     XMLElement* raiz;
+    */
 
     ListaCanciones* store = new ListaCanciones("Spotify Store", "Tienda de canciones, que contiene todas las canciones disponibles para escuchar");
     ListaPlaylist* playlist;
 
-    XMLReader* reader = new XMLReader();
+    
 
     bienvenida();
 
@@ -486,7 +491,9 @@ void menu(){
                     system("clear");
                     cout<<"Saliendo..."<<endl;
                     system("read -p 'Presione enter para continuar...' var");
-                } else if(op==3){
+                
+                }/*
+                 else if(op==3){
                     system("clear");
                     cout<<"Ingrese el path de su archivo junto con su nombre: "<<endl;
                     getline(cin, pathArchivo);
@@ -504,7 +511,8 @@ void menu(){
                             playlist = reader->listaXML(raiz, playlist, store);
                         }
                     }
-                } else {
+                }*/
+                else {
                     system("clear");
                     cout<<"Opcion Invalida..."<<endl;
                     cout<<"Saliendo..."<<endl;

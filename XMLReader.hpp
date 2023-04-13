@@ -1,4 +1,5 @@
-#include "tinyxml2.h"
+/*
+#include "/usr/local/include/tinyxml2.h"
 #include "ListaPlaylist.hpp"
 
 class XMLReader{
@@ -16,3 +17,4 @@ class XMLReader{
 
         ListaPlaylist* eliminarListaXML(XMLElement* raiz, ListaPlaylist* playlist);
 };
+*/

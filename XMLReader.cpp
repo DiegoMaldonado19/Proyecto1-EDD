@@ -1,8 +1,9 @@
-#include "tinyxml2.h"
+/*
 #include "XMLReader.hpp"
 
 
 using namespace tinyxml2;
+using namespace std;
 
 
 XMLReader::XMLReader(){
@@ -134,5 +135,4 @@ ListaPlaylist* XMLReader::eliminarListaXML(XMLElement* raiz, ListaPlaylist* play
     }
     return playlist;
 }
-
-
+*/
